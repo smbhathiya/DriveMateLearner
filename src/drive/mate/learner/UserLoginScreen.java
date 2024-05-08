@@ -4,23 +4,36 @@
  */
 package drive.mate.learner;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.lang.String;
-
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author smbha
  */
-
 public class UserLoginScreen extends javax.swing.JFrame {
 
-    private static String selectedLanguage;
+    public static String selectedLanguage;
+    public static String nicNo;
+
     /**
      * Creates new form UserLoginScreen
      */
     public UserLoginScreen(String selectedLanguage) {
         this.selectedLanguage = selectedLanguage;
         initComponents();
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                AlertMessages.conformExit(); // Call the method from AlertMessages class
+            }
+        });
         // Customize UI based on the selected language
         customizeUI();
     }
@@ -28,13 +41,13 @@ public class UserLoginScreen extends javax.swing.JFrame {
     private void customizeUI() {
         // Example: Set labels, button text, etc. based on selected language
         if (selectedLanguage.equals("English")) {
-            titleLabel.setText("User Login");
+            loginbtn.setText("User Login");
             // Other English-specific customizations
         } else if (selectedLanguage.equals("Sinhala")) {
-            titleLabel.setText("හැඳුනුම්පත");
+            loginbtn.setText("හැඳුනුම්පත");
             // Other Sinhala-specific customizations
         } else if (selectedLanguage.equals("Tamil")) {
-            titleLabel.setText("பயனர் உள்நுழைவு");
+            loginbtn.setText("பயனர் உள்நுழைவு");
             // Other Tamil-specific customizations
         }
     }
@@ -50,44 +63,40 @@ public class UserLoginScreen extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        titleLabel = new javax.swing.JLabel();
+        getNIC = new javax.swing.JTextField();
+        loginbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(31, 31, 31));
 
-        jButton1.setText("Login");
-
-        titleLabel.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
-        titleLabel.setText("jLabel1");
+        loginbtn.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        loginbtn.setText("Login");
+        loginbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginbtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(295, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(268, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(getNIC)
+                    .addComponent(loginbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+                .addContainerGap(301, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
-                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE)
+                .addComponent(getNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(268, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -115,6 +124,43 @@ public class UserLoginScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
+        // Get the NIC number entered by the user
+        nicNo = getNIC.getText();
+
+        // Call a method to check if the user exists in the database
+        if (isUserAvailable(nicNo)) {
+            // User exists, navigate to LearnerMenuScreen with language and NIC number
+            LearnerMenuScreen menuScreen = new LearnerMenuScreen(selectedLanguage, nicNo);
+            menuScreen.setVisible(true);
+            // Close the current UserLoginScreen
+            dispose();
+        } else {
+            // User not available, show an alert or error message to the user
+            JOptionPane.showMessageDialog(this, "User not available. Please check NIC number.");
+        }
+    }//GEN-LAST:event_loginbtnActionPerformed
+
+    public static boolean isUserAvailable(String nicNo) {
+    boolean userAvailable = false;
+
+    try (Connection connection = DatabaseConnection.getConnection();
+         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM users WHERE nicno = ?")) {
+
+        stmt.setString(1, nicNo);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                // User exists
+                userAvailable = true;
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return userAvailable;
+}
+
+    
     /**
      * @param args the command line arguments
      */
@@ -151,10 +197,9 @@ public class UserLoginScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField getNIC;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel titleLabel;
+    private javax.swing.JButton loginbtn;
     // End of variables declaration//GEN-END:variables
 }
