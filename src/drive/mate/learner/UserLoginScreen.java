@@ -4,11 +4,14 @@
  */
 package drive.mate.learner;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.String;
 import java.sql.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -36,6 +39,7 @@ public class UserLoginScreen extends javax.swing.JFrame {
         });
         // Customize UI based on the selected language
         customizeUI();
+        
     }
 
     private void customizeUI() {

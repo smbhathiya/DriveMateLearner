@@ -4,8 +4,10 @@
  */
 package drive.mate.learner;
 
+import static drive.mate.learner.DatabaseConnection.getConnection;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.*;
 
 /**
  *
@@ -15,6 +17,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
 
     public static String selectedLanguage;
     public static String nicNo;
+    public static String userName;
 
     /**
      * Creates new form LearnerMenuScreen
@@ -22,7 +25,15 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     public LearnerMenuScreen(String selectedLanguage, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
-        initComponents();
+        initComponents(); // Move initComponents() call to here
+
+        // Get user name
+        userName = getUserName(nicNo);
+        this.userName = userName;
+
+        // Set NIC number and user name labels
+        nicnolbl.setText(nicNo);
+        usernamelbl.setText(userName);
 
         this.setExtendedState(this.MAXIMIZED_BOTH);
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
@@ -30,9 +41,29 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                AlertMessages.conformExit(); // Call the method from AlertMessages class
+                AlertMessages.conformExit();
             }
         });
+    }
+
+    public static String getUserName(String nicNo) {
+        String userName = "";
+
+        try (
+                Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement("SELECT name FROM users WHERE nicno = ?")) {
+
+            stmt.setString(1, nicNo);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    userName = rs.getString("name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userName;
     }
 
     /**
@@ -46,11 +77,15 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        usernamelbl = new javax.swing.JLabel();
+        nicnolbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         jLabel1.setText("Learner Menu Screen");
 
+        jButton1.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         jButton1.setText("back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,25 +93,43 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             }
         });
 
+        usernamelbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        usernamelbl.setText("name");
+
+        nicnolbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        nicnolbl.setText("nic");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addContainerGap(235, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(185, 185, 185)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nicnolbl)
+                    .addComponent(usernamelbl))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(nicnolbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernamelbl)
+                .addGap(27, 27, 27)
                 .addComponent(jButton1)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -125,5 +178,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel nicnolbl;
+    private javax.swing.JLabel usernamelbl;
     // End of variables declaration//GEN-END:variables
 }
