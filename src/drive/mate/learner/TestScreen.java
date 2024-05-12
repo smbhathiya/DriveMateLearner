@@ -51,14 +51,14 @@ public class TestScreen extends javax.swing.JFrame {
 
 private void initVideoInternalFrame() {
     try {
-        String videoPath = getClass().getResource("/videos/1.mp4").toURI().toString();
+        String videoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/1.mp4";
         
-            String absolutePath = new File(videoPath).getAbsolutePath();
-    System.out.println("Absolute Path: " + absolutePath);
-
+        // Get the absolute path
+        String absolutePath = new File(videoPath).getAbsolutePath();
+        System.out.println("Absolute Path: " + absolutePath);
 
         JFXPanel fxPanel = new JFXPanel();
-        Media media = new Media(videoPath);
+        Media media = new Media(new File(videoPath).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
 
         // Creating a MediaView to display the video
@@ -128,10 +128,6 @@ private void initVideoInternalFrame() {
         e.printStackTrace();
     }
 }
-
-
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.

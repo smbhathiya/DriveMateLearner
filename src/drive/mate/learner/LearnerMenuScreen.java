@@ -127,7 +127,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.png"))); // NOI18N
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logout.png"))); // NOI18N
         jMenu1.setText("Logout");
         jMenu1.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,7 +182,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(getMaterialsbtn))
-                .addContainerGap(392, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {getExambtn, getMaterialsbtn});
