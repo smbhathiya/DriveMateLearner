@@ -8,6 +8,10 @@ import static drive.mate.learner.DatabaseConnection.getConnection;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.*;
+import drive.mate.learner.SelectLanguage;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -117,6 +121,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getMaterialsbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         getMaterialsbtn.setText("View Leaning Materials");
         getMaterialsbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getMaterialsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getMaterialsbtnActionPerformed(evt);
+            }
+        });
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/back.png"))); // NOI18N
         jMenu1.setText("Logout");
@@ -187,9 +196,17 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void getExambtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getExambtnActionPerformed
-        new TestScreen().setVisible(true); 
-       this.setVisible(false);
+        try {
+            new TestScreen().setVisible(true);
+            this.setVisible(false);
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(LearnerMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_getExambtnActionPerformed
+
+    private void getMaterialsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getMaterialsbtnActionPerformed
+        OpenPDF.openPDF(selectedLanguage);
+    }//GEN-LAST:event_getMaterialsbtnActionPerformed
 
     /**
      * @param args the command line arguments

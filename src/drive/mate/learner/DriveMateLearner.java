@@ -7,6 +7,8 @@ package drive.mate.learner;
 import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import drive.mate.learner.LoadingScreen;
+import drive.mate.learner.SelectLanguage;
 
 /**
  *

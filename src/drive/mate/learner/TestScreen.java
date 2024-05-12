@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.File;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +52,10 @@ public class TestScreen extends javax.swing.JFrame {
 private void initVideoInternalFrame() {
     try {
         String videoPath = getClass().getResource("/videos/1.mp4").toURI().toString();
+        
+            String absolutePath = new File(videoPath).getAbsolutePath();
+    System.out.println("Absolute Path: " + absolutePath);
+
 
         JFXPanel fxPanel = new JFXPanel();
         Media media = new Media(videoPath);
