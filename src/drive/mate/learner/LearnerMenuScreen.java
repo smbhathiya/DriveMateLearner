@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.*;
 import drive.mate.learner.SelectLanguage;
+import java.io.File;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -196,12 +197,8 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void getExambtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getExambtnActionPerformed
-        try {
-            new TestScreen().setVisible(true);
-            this.setVisible(false);
-        } catch (URISyntaxException ex) {
-            Logger.getLogger(LearnerMenuScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        new TestScreen(selectedLanguage, nicNo).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_getExambtnActionPerformed
 
     private void getMaterialsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getMaterialsbtnActionPerformed

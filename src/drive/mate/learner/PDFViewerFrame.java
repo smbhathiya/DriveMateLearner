@@ -20,10 +20,12 @@ public class PDFViewerFrame extends JFrame {
     private final File pdfFile;
     private float currentDPI = 100; // Initial DPI value
 
-    public PDFViewerFrame(File pdfFile) {
+   public PDFViewerFrame(File pdfFile, int width, int height) {
         this.pdfFile = pdfFile;
         setTitle("PDF Viewer");
+        setSize(width, height);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         loadPDF();
     }
 
@@ -118,12 +120,12 @@ public class PDFViewerFrame extends JFrame {
         contentPane.repaint();
     }
 
-    public static void main(String[] args) {
-        File pdfFile = new File("path_to_your_pdf_file.pdf");
-        SwingUtilities.invokeLater(() -> {
-            PDFViewerFrame viewerFrame = new PDFViewerFrame(pdfFile);
-            viewerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            viewerFrame.setVisible(true);
-        });
-    }
+//    public static void main(String[] args) {
+//        File pdfFile = new File("path_to_your_pdf_file.pdf");
+//        SwingUtilities.invokeLater(() -> {
+//            PDFViewerFrame viewerFrame = new PDFViewerFrame(pdfFile, 800, 600);
+//            viewerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            viewerFrame.setVisible(true);
+//        });
+//    }
 }
