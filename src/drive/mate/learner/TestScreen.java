@@ -17,7 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.scene.paint.Color;
+import javax.swing.JLabel;
 
 /**
  *
@@ -28,10 +33,35 @@ public class TestScreen extends javax.swing.JFrame {
     private static String selectedLanguage;
     private static String nicNo;
     private MediaPlayer mediaPlayer;
+    private MediaView mediaView;
+    private int currentVideoIndex = 1;
+    private int score = 0;
+    private String selectedAnswer = null;
+
+    // Array of questions
+    private static final String[] questions = {
+        "What animal is shown in the video?",
+        "What object is depicted in the video?",
+        "Which pet is featured in the video?"
+    // Add more questions for other video indices
+    };
+
+    // Answers
+    private static final Map<Integer, String[]> videoButtonTexts = new HashMap<>();
+
+    static {
+       videoButtonTexts.put(0, new String[]{"Moose", "Goat", "Apple", "Mango"});
+        videoButtonTexts.put(1, new String[]{"Mask", "Did", "Horn", "Tim"});
+        videoButtonTexts.put(2, new String[]{"Cat", "Dog", "Fish", "Bird"});
+        // Add more mappings for other video indices
+    }
 
     /**
      * Creates new form TestScreen
      */
+    private JLabel questionLabel;
+    private JButton[] buttons = new JButton[4];
+
     public TestScreen(String selectedLanguage, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
@@ -50,7 +80,8 @@ public class TestScreen extends javax.swing.JFrame {
 
     private void initVideoInternalFrame() {
         try {
-            String videoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/1.mp4";
+            // Path to the current video
+            String videoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
 
             JFXPanel fxPanel = new JFXPanel();
             Media media = new Media(new File(videoPath).toURI().toString());
@@ -87,128 +118,111 @@ public class TestScreen extends javax.swing.JFrame {
             buttonPanel.setOpaque(false); // Transparent panel
             videoPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-            // Add buttons
-            for (int i = 1; i <= 4; i++) {
-                JButton button = new JButton("Button " + i);
-                button.setPreferredSize(new Dimension(100, 30)); // Set preferred size
-                button.setVisible(false); // Initially hide the buttons
-                buttonPanel.add(button);
+            // Add question label
+            questionLabel = new JLabel(questions[currentVideoIndex - 1]);
+            questionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            questionLabel.setForeground(java.awt.Color.WHITE);
+            questionLabel.setVisible(false);
+            buttonPanel.add(questionLabel);
+
+             // Add buttons
+            for (int i = 0; i < 4; i++) {
+                buttons[i] = new JButton();
+                buttons[i].setPreferredSize(new Dimension(100, 30)); // Set preferred size
+                buttons[i].setVisible(false); // Initially hide the buttons
+                buttonPanel.add(buttons[i]);
+
+                // Add action listener to buttons
+                final int answerIndex = i;
+                buttons[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Handle button click
+                        selectedAnswer = buttons[answerIndex].getText();
+                        System.out.println("Selected answer: " + selectedAnswer);
+                    }
+                });
             }
+
+            // Add action listener to confirm button
+            JButton confirmButton = new JButton("Confirm");
+            confirmButton.setPreferredSize(new Dimension(100, 30));
+            confirmButton.setVisible(false);
+            buttonPanel.add(confirmButton);
+            confirmButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (selectedAnswer != null) {
+                        // Check if the selected answer is correct
+                        if (selectedAnswer.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
+                            score++;
+                            System.out.println("Correct answer! Current score: " + score);
+                        } else {
+                            System.out.println("Wrong answer. Current score: " + score);
+                        }
+
+                        // Load the next video
+                        currentVideoIndex++;
+                        if (currentVideoIndex <= questions.length) {
+                            String nextVideoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
+                            Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
+                            mediaPlayer.stop();
+                            mediaPlayer = new MediaPlayer(nextMedia);
+                            mediaView.setMediaPlayer(mediaPlayer);
+                            mediaPlayer.play();
+
+                            // Hide the buttons and question again
+                            for (Component component : buttonPanel.getComponents()) {
+                                component.setVisible(false);
+                            }
+                            confirmButton.setVisible(false);
+                            selectedAnswer = null; // Reset selected answer
+
+                            // Add listener to detect when the next video ends
+                            mediaPlayer.setOnEndOfMedia(() -> {
+                                // Update button texts and question
+                                questionLabel.setText(questions[currentVideoIndex - 1]);
+                                updateButtonLabels();
+
+                                // Make the buttons and question visible
+                                for (Component component : buttonPanel.getComponents()) {
+                                    component.setVisible(true);
+                                }
+                                confirmButton.setVisible(true);
+                            });
+                        }
+                    } else {
+                        System.out.println("Please select an answer before confirming.");
+                    }
+                }
+            });
+
 
             // Add listener to detect when the video ends
             mediaPlayer.setOnEndOfMedia(() -> {
-                // Make the buttons visible
+                // Update button texts and question
+                updateButtonLabels();
+
+                // Make the buttons and question visible
                 for (Component component : buttonPanel.getComponents()) {
                     component.setVisible(true);
                 }
+                confirmButton.setVisible(true);
             });
 
             // Assuming jPanel is an instance of CustomPanel
             jPanel.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
-                    // Get the new size of the panel
-                    Dimension newSize = jPanel.getSize();
-                    double newWidth = newSize.getWidth();
-                    double newHeight = newSize.getHeight();
-
-                    // Ensure media and mediaView are properly initialized
-                    if (media != null && mediaView != null) {
-                        // Get the original dimensions of the video
-                        double originalWidth = media.getWidth();
-                        double originalHeight = media.getHeight();
-
-                        // Ensure original dimensions are valid
-                        if (originalWidth > 0 && originalHeight > 0) {
-                            // Calculate the ratio of the panel size to the original video size
-                            double widthRatio = newWidth / originalWidth;
-                            double heightRatio = newHeight / originalHeight;
-
-                            // Determine the scaling factor based on the smaller ratio to maintain aspect ratio
-                            double scaleFactor = Math.min(widthRatio, heightRatio);
-
-                            // Calculate the scaled dimensions
-                            double scaledWidth = originalWidth * scaleFactor;
-                            double scaledHeight = originalHeight * scaleFactor;
-
-                            // Center the MediaView within the panel
-                            double offsetX = (newWidth - scaledWidth) / 2;
-                            double offsetY = (newHeight - scaledHeight) / 2;
-
-                            // Set the dimensions and position of the MediaView
-                            mediaView.setFitWidth(scaledWidth);
-                            mediaView.setFitHeight(scaledHeight);
-                            mediaView.setLayoutX(offsetX);
-                            mediaView.setLayoutY(offsetY);
-                        } else {
-                            // Handle invalid original dimensions
-                            System.err.println("Invalid original dimensions of the video.");
-                        }
-                    } else {
-                        // Handle uninitialized media or mediaView
-                        System.err.println("Media or mediaView is not properly initialized.");
-                    }
+                    resizeMediaView(jPanel, media, mediaView);
                 }
-
             });
 
             // Add a component listener to track JFrame resizing
             container.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
-                    // Get the new size of the JFrame
-                    Dimension newSize = container.getSize();
-                    double newWidth = newSize.getWidth();
-                    double newHeight = newSize.getHeight();
-
-                    // Ensure media and mediaView are properly initialized
-                    if (media != null && mediaView != null) {
-                        // Get the original dimensions of the video
-                        double originalWidth = media.getWidth();
-                        double originalHeight = media.getHeight();
-
-                        // Ensure original dimensions are valid
-                        if (originalWidth > 0 && originalHeight > 0) {
-                            // Calculate the aspect ratio of the video
-                            double videoAspectRatio = originalWidth / originalHeight;
-
-                            // Calculate the aspect ratio of the JFrame
-                            double frameAspectRatio = newWidth / newHeight;
-
-                            // Calculate the scaled dimensions
-                            double scaledWidth, scaledHeight;
-
-                            // Adjust the size of the videoPanel based on the aspect ratio
-                            if (videoAspectRatio > frameAspectRatio) {
-                                // Video is wider, adjust height
-                                scaledWidth = newWidth;
-                                scaledHeight = newWidth / videoAspectRatio;
-                                videoPanel.setPreferredSize(new Dimension((int) scaledWidth, (int) scaledHeight));
-                            } else {
-                                // Video is taller, adjust width
-                                scaledWidth = newHeight * videoAspectRatio;
-                                scaledHeight = newHeight;
-                                videoPanel.setPreferredSize(new Dimension((int) scaledWidth, (int) scaledHeight));
-                            }
-
-                            // Center the MediaView within the panel
-                            double offsetX = (newWidth - scaledWidth) / 2;
-                            double offsetY = (newHeight - scaledHeight) / 2;
-
-                            // Set the dimensions and position of the MediaView
-                            mediaView.setFitWidth(scaledWidth);
-                            mediaView.setFitHeight(scaledHeight);
-                            mediaView.setLayoutX(offsetX);
-                            mediaView.setLayoutY(offsetY);
-                        } else {
-                            // Handle invalid original dimensions
-                            System.err.println("Invalid original dimensions of the video.");
-                        }
-                    } else {
-                        // Handle uninitialized media or mediaView
-                        System.err.println("Media or mediaView is not properly initialized.");
-                    }
-
+                    resizeMediaView(container, media, mediaView);
                     // Request a layout update to adjust the size of the videoPanel
                     videoPanel.revalidate();
                 }
@@ -219,6 +233,76 @@ public class TestScreen extends javax.swing.JFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void updateButtonLabels() {
+        if (currentVideoIndex <= questions.length) {
+            for (int i = 0; i < 4; i++) {
+                buttons[i].setText(videoButtonTexts.get(currentVideoIndex - 1)[i]);
+            }
+        }
+    }
+
+    private void resizeMediaView(Component container, Media media, MediaView mediaView) {
+        // Get the new size of the container
+        Dimension newSize = container.getSize();
+        double newWidth = newSize.getWidth();
+        double newHeight = newSize.getHeight();
+
+        // Ensure media and mediaView are properly initialized
+        if (media != null && mediaView != null) {
+            // Get the original dimensions of the video
+            double originalWidth = media.getWidth();
+            double originalHeight = media.getHeight();
+
+            // Ensure original dimensions are valid
+            if (originalWidth > 0 && originalHeight > 0) {
+                // Calculate the aspect ratio of the video
+                double videoAspectRatio = originalWidth / originalHeight;
+
+                // Calculate the aspect ratio of the container
+                double containerAspectRatio = newWidth / newHeight;
+
+                // Calculate the scaled dimensions
+                double scaledWidth, scaledHeight;
+
+                // Adjust the size of the mediaView based on the aspect ratio
+                if (videoAspectRatio > containerAspectRatio) {
+                    // Video is wider, adjust height
+                    scaledWidth = newWidth;
+                    scaledHeight = newWidth / videoAspectRatio;
+                } else {
+                    // Video is taller, adjust width
+                    scaledWidth = newHeight * videoAspectRatio;
+                    scaledHeight = newHeight;
+                }
+
+                // Center the MediaView within the container
+                double offsetX = (newWidth - scaledWidth) / 2;
+                double offsetY = (newHeight - scaledHeight) / 2;
+
+                // Set the dimensions and position of the MediaView
+                mediaView.setFitWidth(scaledWidth);
+                mediaView.setFitHeight(scaledHeight);
+                mediaView.setLayoutX(offsetX);
+                mediaView.setLayoutY(offsetY);
+            } else {
+                // Handle invalid original dimensions
+                System.err.println("Invalid original dimensions of the video.");
+            }
+        } else {
+            // Handle uninitialized media or mediaView
+            System.err.println("Media or mediaView is not properly initialized.");
+        }
+    }
+
+    private void updateButtonLabels(JPanel buttonPanel) {
+        String[] buttonTexts = videoButtonTexts.get(currentVideoIndex);
+        for (int i = 0; i < buttonPanel.getComponentCount() - 1; i++) {
+            if (i < buttonTexts.length) {
+                ((JButton) buttonPanel.getComponent(i)).setText(buttonTexts[i]);
+            }
         }
     }
 
@@ -350,16 +434,24 @@ public class TestScreen extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestScreen.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -377,6 +469,6 @@ public class TestScreen extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton startButton;
-    private javax.swing.JPanel videoPanel;
+    public javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
 }
