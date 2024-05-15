@@ -68,7 +68,9 @@ public class TestScreen extends javax.swing.JFrame {
     private void initVideoInternalFrame() {
         try {
             // Path to the current video
-            String videoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
+            String folderPath = System.getProperty("user.dir");
+            String videoPath = folderPath + "/videos/" + currentVideoIndex + ".mp4";
+            //String videoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
 
             JFXPanel fxPanel = new JFXPanel();
             Media media = new Media(new File(videoPath).toURI().toString());
@@ -177,11 +179,14 @@ public class TestScreen extends javax.swing.JFrame {
                         // Load the next video
                         currentVideoIndex++;
                         if (currentVideoIndex <= questions.length) {
+                            
                             //path should change to this when build
-                            //String folderPath = System.getProperty("user.dir");
-                            //String nextVideoPath = folderPath + "/videos/"  + currentVideoIndex + ".mp4";
+                            String nextVideoPath = folderPath + "/videos/"  + currentVideoIndex + ".mp4";
 
-                            String nextVideoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
+                            //Testing Path
+                            //String nextVideoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
+                            
+                            
                             Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
                             mediaPlayer.stop();
                             mediaPlayer = new MediaPlayer(nextMedia);

@@ -9,6 +9,16 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="Drive_Mate_Learner" default="default" basedir=".">
     <description>Builds, tests, and runs the project Drive Mate Learner.</description>
+    
+    <target name="-post-jar">
+        <copy todir="dist/pdf">
+            <fileset dir="C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/pdf/" />
+        </copy>
+        <copy todir="dist/videos">
+            <fileset dir="C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" />
+        </copy>
+    </target>
+    
     <import file="nbproject/build-impl.xml"/>
 
 
