@@ -21,6 +21,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -69,8 +70,7 @@ public class TestScreen extends javax.swing.JFrame {
         try {
             // Path to the current video
             String folderPath = System.getProperty("user.dir");
-            String videoPath = folderPath + "/videos/" + currentVideoIndex + ".mp4";
-            //String videoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
+            String videoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";           
 
             JFXPanel fxPanel = new JFXPanel();
             Media media = new Media(new File(videoPath).toURI().toString());
@@ -180,11 +180,7 @@ public class TestScreen extends javax.swing.JFrame {
                         currentVideoIndex++;
                         if (currentVideoIndex <= questions.length) {
                             
-                            //path should change to this when build
-                            String nextVideoPath = folderPath + "/videos/"  + currentVideoIndex + ".mp4";
-
-                            //Testing Path
-                            //String nextVideoPath = "C:/Users/smbha/OneDrive/Documents/NetBeansProjects/PROJECT/Drive Mate Learner/test/videos/" + currentVideoIndex + ".mp4";
+                            String nextVideoPath = folderPath + "/resources/videos/"  + currentVideoIndex + ".mp4";
                             
                             
                             Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
@@ -436,6 +432,7 @@ private void resizeMediaView(Component container, Media media, MediaView mediaVi
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         disposeMediaPlayer();
+        Platform.setImplicitExit(false);
         new LearnerMenuScreen(selectedLanguage, nicNo).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jMenu1MouseClicked
