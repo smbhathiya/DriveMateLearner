@@ -1,11 +1,15 @@
 package drive.mate.learner;
 
+import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -19,7 +23,10 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
@@ -48,6 +55,13 @@ public class TestScreen extends javax.swing.JFrame {
     private String[] questions;
     private Map<Integer, String[]> videoButtonTexts;
 
+    LocalDate currentDate = LocalDate.now();
+    LocalTime currentTime = LocalTime.now();
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    String formattedDate = currentDate.format(dateFormatter);
+    String formattedTime = currentTime.format(timeFormatter);
+
     public TestScreen(String selectedLanguage, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
@@ -70,7 +84,7 @@ public class TestScreen extends javax.swing.JFrame {
         try {
             // Path to the current video
             String folderPath = System.getProperty("user.dir");
-            String videoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";           
+            String videoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";
 
             JFXPanel fxPanel = new JFXPanel();
             Media media = new Media(new File(videoPath).toURI().toString());
@@ -142,13 +156,10 @@ public class TestScreen extends javax.swing.JFrame {
 
                 // Add action listener to buttons
                 final int answerIndex = i;
-                buttons[i].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        // Handle button click
-                        selectedAnswer = buttons[answerIndex].getText();
-                        System.out.println("Selected answer: " + selectedAnswer);
-                    }
+                buttons[i].addActionListener((ActionEvent e) -> {
+                    // Handle button click
+                    selectedAnswer = buttons[answerIndex].getText();
+                    System.out.println("Selected answer: " + selectedAnswer);
                 });
             }
 
@@ -164,54 +175,73 @@ public class TestScreen extends javax.swing.JFrame {
             confirmPanel.add(confirmButton);
             buttonPanel.add(confirmPanel);
 
-            confirmButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (selectedAnswer != null) {
-                        // Check if the selected answer is correct
-                        if (selectedAnswer.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
-                            score++;
-                            System.out.println("Correct answer! Current score: " + score);
-                        } else {
-                            System.out.println("Wrong answer. Current score: " + score);
-                        }
-
-                        // Load the next video
-                        currentVideoIndex++;
-                        if (currentVideoIndex <= questions.length) {
-                            
-                            String nextVideoPath = folderPath + "/resources/videos/"  + currentVideoIndex + ".mp4";
-                            
-                            
-                            Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
-                            mediaPlayer.stop();
-                            mediaPlayer = new MediaPlayer(nextMedia);
-                            mediaView.setMediaPlayer(mediaPlayer);
-                            mediaPlayer.play();
-
-                            // Hide the buttons and question again
-                            for (Component component : buttonPanel.getComponents()) {
-                                component.setVisible(false);
-                            }
-                            confirmButton.setVisible(false);
-                            selectedAnswer = null; // Reset selected answer
-
-                            // Add listener to detect when the next video ends
-                            mediaPlayer.setOnEndOfMedia(() -> {
-                                // Update button texts and question
-                                questionLabel.setText(questions[currentVideoIndex - 1]);
-                                updateButtonLabels();
-
-                                // Make the buttons and question visible
-                                for (Component component : buttonPanel.getComponents()) {
-                                    component.setVisible(true);
-                                }
-                                confirmButton.setVisible(true);
-                            });
-                        }
+            confirmButton.addActionListener((ActionEvent e) -> {
+                if (selectedAnswer != null) {
+                    // Check if the selected answer is correct
+                    if (selectedAnswer.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
+                        score++;
+                        System.out.println("Correct answer! Current score: " + score);
                     } else {
-                        System.out.println("Please select an answer before confirming.");
+                        System.out.println("Wrong answer. Current score: " + score);
                     }
+                    // Load the next video or show final score
+                    currentVideoIndex++;
+                    if (currentVideoIndex <= questions.length) {
+                        String nextVideoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";
+                        Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
+                        mediaPlayer.stop();
+                        mediaPlayer = new MediaPlayer(nextMedia);
+                        mediaView.setMediaPlayer(mediaPlayer);
+                        mediaPlayer.play();
+                        // Hide the buttons and question again
+                        for (Component component1 : buttonPanel.getComponents()) {
+                            component1.setVisible(false);
+                        }
+                        confirmButton.setVisible(false);
+                        selectedAnswer = null; // Reset selected answer
+                        // Add listener to detect when the next video ends
+                        mediaPlayer.setOnEndOfMedia(() -> {
+                            // Update button texts and question
+                            questionLabel.setText(questions[currentVideoIndex - 1]);
+                            updateButtonLabels();
+                            // Make the buttons and question visible
+                            for (Component component2 : buttonPanel.getComponents()) {
+                                component2.setVisible(true);
+                            }
+                            confirmButton.setVisible(true);
+                        });
+                    } else {
+                        // All questions have been answered, show final score
+                        System.out.println("Test completed. Final score: " + score);
+                        try (Connection connection = DatabaseConnection.getConnection()) {
+                            // Prepare SQL statement to insert final score into the database
+                            String insertQuery = "INSERT INTO marks (nicno, date, time, marks) VALUES (?, ?, ?, ?)";
+                            try (PreparedStatement stmt = connection.prepareStatement(insertQuery)) {
+                                // Set parameters for the prepared statement
+                                stmt.setString(1, nicNo); 
+                                stmt.setString(2, formattedDate);
+                                stmt.setString(3, formattedTime);
+                                stmt.setInt(4, score);
+
+                                // Execute the insert statement
+                                int rowsAffected = stmt.executeUpdate();
+                                if (rowsAffected > 0) {
+                                    System.out.println("Final score saved in the database.");
+                                } else {
+                                    System.out.println("Failed to save final score in the database.");
+                                }
+                            }
+                        } catch (SQLException ex) {
+                            System.err.println("Error while saving final score in the database: " + ex.getMessage());
+                            ex.printStackTrace();
+                        }
+                        for (Component component3 : buttonPanel.getComponents()) {
+                            component3.setVisible(false);
+                        }
+                        confirmButton.setVisible(false);
+                    }
+                } else {
+                    System.out.println("Please select an answer before confirming.");
                 }
             });
 
@@ -255,75 +285,66 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-
     private void updateButtonLabels() {
         if (currentVideoIndex <= questions.length) {
+            List<String> answers = new ArrayList<>(List.of(videoButtonTexts.get(currentVideoIndex - 1)));
+            Collections.shuffle(answers);
             for (int i = 0; i < 4; i++) {
-                buttons[i].setText(videoButtonTexts.get(currentVideoIndex - 1)[i]);
+                buttons[i].setText(answers.get(i));
             }
         }
     }
 
-private void resizeMediaView(Component container, Media media, MediaView mediaView) {
-    // Get the new size of the container
-    Dimension newSize = container.getSize();
-    double newWidth = newSize.getWidth();
-    double newHeight = newSize.getHeight();
+    private void resizeMediaView(Component container, Media media, MediaView mediaView) {
+        // Get the new size of the container
+        Dimension newSize = container.getSize();
+        double newWidth = newSize.getWidth();
+        double newHeight = newSize.getHeight();
 
-    // Ensure media and mediaView are properly initialized
-    if (media != null && mediaView != null) {
-        // Get the original dimensions of the video
-        double originalWidth = media.getWidth();
-        double originalHeight = media.getHeight();
+        // Ensure media and mediaView are properly initialized
+        if (media != null && mediaView != null) {
+            // Get the original dimensions of the video
+            double originalWidth = media.getWidth();
+            double originalHeight = media.getHeight();
 
-        // Ensure original dimensions are valid
-        if (originalWidth > 0 && originalHeight > 0) {
-            // Calculate the aspect ratio of the video
-            double videoAspectRatio = originalWidth / originalHeight;
+            // Ensure original dimensions are valid
+            if (originalWidth > 0 && originalHeight > 0) {
+                // Calculate the aspect ratio of the video
+                double videoAspectRatio = originalWidth / originalHeight;
 
-            // Calculate the aspect ratio of the container
-            double containerAspectRatio = newWidth / newHeight;
+                // Calculate the aspect ratio of the container
+                double containerAspectRatio = newWidth / newHeight;
 
-            // Calculate the scaled dimensions
-            double scaledWidth, scaledHeight;
+                // Calculate the scaled dimensions
+                double scaledWidth, scaledHeight;
 
-            // Adjust the size of the mediaView based on the aspect ratio
-            if (videoAspectRatio > containerAspectRatio) {
-                // Video is wider, adjust height
-                scaledWidth = newWidth;
-                scaledHeight = newWidth / videoAspectRatio;
+                // Adjust the size of the mediaView based on the aspect ratio
+                if (videoAspectRatio > containerAspectRatio) {
+                    // Video is wider, adjust height
+                    scaledWidth = newWidth;
+                    scaledHeight = newWidth / videoAspectRatio;
+                } else {
+                    // Video is taller, adjust width
+                    scaledWidth = newHeight * videoAspectRatio;
+                    scaledHeight = newHeight;
+                }
+
+                // Center the MediaView within the container
+                double offsetX = (newWidth - scaledWidth) / 2;
+                double offsetY = (newHeight - scaledHeight) / 2;
+
+                // Set the dimensions and position of the MediaView
+                mediaView.setFitWidth(scaledWidth);
+                mediaView.setFitHeight(scaledHeight);
+                mediaView.setLayoutX(offsetX);
+                mediaView.setLayoutY(offsetY);
             } else {
-                // Video is taller, adjust width
-                scaledWidth = newHeight * videoAspectRatio;
-                scaledHeight = newHeight;
+                // Handle invalid original dimensions
+                System.err.println("Invalid original dimensions of the video.");
             }
-
-            // Center the MediaView within the container
-            double offsetX = (newWidth - scaledWidth) / 2;
-            double offsetY = (newHeight - scaledHeight) / 2;
-
-            // Set the dimensions and position of the MediaView
-            mediaView.setFitWidth(scaledWidth);
-            mediaView.setFitHeight(scaledHeight);
-            mediaView.setLayoutX(offsetX);
-            mediaView.setLayoutY(offsetY);
         } else {
-            // Handle invalid original dimensions
-            System.err.println("Invalid original dimensions of the video.");
-        }
-    } else {
-        // Handle uninitialized media or mediaView
-        System.err.println("Media or mediaView is not properly initialized.");
-    }
-}
-
-
-    private void updateButtonLabels(JPanel buttonPanel) {
-        String[] buttonTexts = videoButtonTexts.get(currentVideoIndex);
-        for (int i = 0; i < buttonPanel.getComponentCount() - 1; i++) {
-            if (i < buttonTexts.length) {
-                ((JButton) buttonPanel.getComponent(i)).setText(buttonTexts[i]);
-            }
+            // Handle uninitialized media or mediaView
+            System.err.println("Media or mediaView is not properly initialized.");
         }
     }
 
