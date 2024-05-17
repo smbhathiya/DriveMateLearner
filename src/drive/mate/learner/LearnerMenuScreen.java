@@ -9,10 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.*;
 import drive.mate.learner.SelectLanguage;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -49,6 +45,25 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                 AlertMessages.conformExit();
             }
         });
+
+        if (selectedLanguage == "Sinhala") {
+            logoutBtn.setText("පිටවීම");
+            menulbl.setText("ප්‍රධාන මෙනුව");
+            namelbl.setText("නම");
+            getMaterialsbtn.setText("ඉගෙනුම් ද්රව්ය");
+            getExambtn.setText("පරීක්ෂණය");
+            
+            
+
+        } else if (selectedLanguage == "Tamil") {
+            logoutBtn.setText("வெளியேறு");
+            menulbl.setText("முதன்மை பட்டியல்");
+            namelbl.setText("பெயர்");
+            getMaterialsbtn.setText("கற்கும் திரவியம்");
+            getExambtn.setText("தேர்வு");
+            
+
+        }
     }
 
     public static String getUserName(String nicNo) {
@@ -80,21 +95,21 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        menulbl = new javax.swing.JLabel();
         usernamelbl = new javax.swing.JLabel();
         nicnolbl = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        namelbl = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         getExambtn = new javax.swing.JButton();
         getMaterialsbtn = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        logoutBtn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel1.setText("Learner Menu Screen");
+        menulbl.setFont(new java.awt.Font("Nirmala UI", 1, 36)); // NOI18N
+        menulbl.setForeground(new java.awt.Color(255, 255, 0));
+        menulbl.setText("Main Menu");
 
         usernamelbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         usernamelbl.setForeground(new java.awt.Color(204, 204, 204));
@@ -104,8 +119,8 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         nicnolbl.setForeground(new java.awt.Color(204, 204, 204));
         nicnolbl.setText("nic");
 
-        jLabel2.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        jLabel2.setText("NAME :");
+        namelbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        namelbl.setText("NAME :");
 
         jLabel3.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         jLabel3.setText("NIC :");
@@ -120,7 +135,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         });
 
         getMaterialsbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        getMaterialsbtn.setText("View Leaning Materials");
+        getMaterialsbtn.setText("Leaning Materials");
         getMaterialsbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getMaterialsbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,15 +143,15 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logout.png"))); // NOI18N
-        jMenu1.setText("Logout");
-        jMenu1.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/logout.png"))); // NOI18N
+        logoutBtn.setText("Logout");
+        logoutBtn.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                logoutBtnMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(logoutBtn);
 
         setJMenuBar(jMenuBar1);
 
@@ -149,11 +164,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                            .addComponent(menulbl)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
+                                    .addComponent(namelbl))
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(usernamelbl)
@@ -164,16 +179,16 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                         .addComponent(getMaterialsbtn)
                         .addGap(63, 63, 63)
                         .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addContainerGap(527, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel1)
+                .addComponent(menulbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(namelbl)
                     .addComponent(nicnolbl))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -191,10 +206,10 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
         new SelectLanguage().setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_logoutBtnMouseClicked
 
     private void getExambtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getExambtnActionPerformed
         new TestScreen(selectedLanguage, nicNo).setVisible(true);
@@ -243,11 +258,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton getExambtn;
     private javax.swing.JButton getMaterialsbtn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu logoutBtn;
+    private javax.swing.JLabel menulbl;
+    private javax.swing.JLabel namelbl;
     private javax.swing.JLabel nicnolbl;
     private javax.swing.JLabel usernamelbl;
     // End of variables declaration//GEN-END:variables

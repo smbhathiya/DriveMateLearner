@@ -62,6 +62,11 @@ public class TestScreen extends javax.swing.JFrame {
     String formattedDate = currentDate.format(dateFormatter);
     String formattedTime = currentTime.format(timeFormatter);
 
+    Font questionFont = new Font("Nirmala UI", Font.BOLD, 16);
+    Font buttonFont = new Font("Nirmala UI", Font.PLAIN, 14);
+
+    JButton confirmButton = new JButton("Confirm");
+
     public TestScreen(String selectedLanguage, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
@@ -78,6 +83,19 @@ public class TestScreen extends javax.swing.JFrame {
                 AlertMessages.conformExit();
             }
         });
+
+        if (selectedLanguage == "Sinhala") {
+            startButton.setText("ආරම්භ කරන්න");
+            backBtn.setText("ආපසු");
+            confirmButton.setText("තහවුරු කරන්න");
+
+        } else if (selectedLanguage == "Tamil") {
+            startButton.setText("தொடங்கு");
+            backBtn.setText("ஆதரி");
+            confirmButton.setText("உறுதி செய்");
+
+        }
+
     }
 
     private void initVideoInternalFrame() {
@@ -122,9 +140,6 @@ public class TestScreen extends javax.swing.JFrame {
             buttonPanel.setOpaque(false); // Transparent panel
             videoPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-            Font questionFont = new Font("Nirmala UI", Font.BOLD, 16);
-            Font buttonFont = new Font("Nirmala UI", Font.PLAIN, 14);
-
             // Add question label in a separate JPanel
             JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             questionPanel.setOpaque(false); // Transparent panel
@@ -134,6 +149,8 @@ public class TestScreen extends javax.swing.JFrame {
             questionLabel.setVisible(false); // Make question label visible
             questionPanel.add(questionLabel);
             buttonPanel.add(questionPanel);
+
+            confirmButton.setFont(buttonFont);
 
             // Add buttons in two rows using nested JPanels
             JPanel buttonRow1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -169,7 +186,6 @@ public class TestScreen extends javax.swing.JFrame {
             // Add confirm button in a separate JPanel
             JPanel confirmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             confirmPanel.setOpaque(false); // Transparent panel
-            JButton confirmButton = new JButton("Confirm");
             confirmButton.setPreferredSize(new Dimension(200, 40));
             confirmButton.setVisible(false); // Make confirm button visible
             confirmPanel.add(confirmButton);
@@ -218,7 +234,7 @@ public class TestScreen extends javax.swing.JFrame {
                             String insertQuery = "INSERT INTO marks (nicno, date, time, marks) VALUES (?, ?, ?, ?)";
                             try (PreparedStatement stmt = connection.prepareStatement(insertQuery)) {
                                 // Set parameters for the prepared statement
-                                stmt.setString(1, nicNo); 
+                                stmt.setString(1, nicNo);
                                 stmt.setString(2, formattedDate);
                                 stmt.setString(3, formattedTime);
                                 stmt.setInt(4, score);
@@ -369,8 +385,7 @@ public class TestScreen extends javax.swing.JFrame {
         videoPanel = new javax.swing.JPanel();
         startButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        backBtn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -378,12 +393,14 @@ public class TestScreen extends javax.swing.JFrame {
 
         videoPanel.setBackground(new java.awt.Color(31, 31, 31));
         videoPanel.setForeground(new java.awt.Color(204, 204, 204));
-        videoPanel.setPreferredSize(new java.awt.Dimension(1200, 720));
+        videoPanel.setPreferredSize(new java.awt.Dimension(1200, 1000));
 
         startButton.setBackground(new java.awt.Color(204, 204, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
         startButton.setForeground(new java.awt.Color(51, 51, 51));
         startButton.setText("START");
+        startButton.setMaximumSize(new java.awt.Dimension(200, 80));
+        startButton.setPreferredSize(new java.awt.Dimension(250, 60));
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -394,17 +411,17 @@ public class TestScreen extends javax.swing.JFrame {
         videoPanel.setLayout(videoPanelLayout);
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(videoPanelLayout.createSequentialGroup()
-                .addContainerGap(505, Short.MAX_VALUE)
-                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(507, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
+                .addContainerGap(462, Short.MAX_VALUE)
+                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(488, Short.MAX_VALUE))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(videoPanelLayout.createSequentialGroup()
-                .addContainerGap(324, Short.MAX_VALUE)
-                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(332, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
+                .addContainerGap(467, Short.MAX_VALUE)
+                .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(473, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -424,16 +441,15 @@ public class TestScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Back");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/back.png"))); // NOI18N
+        backBtn.setText("Back");
+        backBtn.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu1MouseClicked(evt);
+                backBtnMouseClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(backBtn);
 
         setJMenuBar(jMenuBar1);
 
@@ -451,12 +467,12 @@ public class TestScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
         disposeMediaPlayer();
         Platform.setImplicitExit(false);
         new LearnerMenuScreen(selectedLanguage, nicNo).setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jMenu1MouseClicked
+    }//GEN-LAST:event_backBtnMouseClicked
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed
         initVideoInternalFrame();
@@ -507,8 +523,7 @@ public class TestScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu backBtn;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton startButton;
