@@ -4,6 +4,8 @@
  */
 package drive.mate.learner;
 
+
+
 /**
  *
  * @author smbha
@@ -19,8 +21,6 @@ public class StatusFrame extends javax.swing.JFrame {
         this.score = score;
         initComponents();
         
-        //this.setExtendedState(this.MAXIMIZED_BOTH);
-        //setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 
         scorelbl.setText(Integer.toString(score));
         if(score>15){

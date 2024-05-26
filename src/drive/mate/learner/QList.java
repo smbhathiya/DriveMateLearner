@@ -11,154 +11,156 @@ public class QList {
 
     //English Questions
     public static final String[] questionsEn = {
-        "What animal is shown in the video?",
-        "What object is depicted in the video?",
-        "Which pet is featured in the video?",
-        "What fruit is shown in the video?",
-        "What vehicle is shown in the video?",
-        "What building is shown in the video?",
-        "What sport is played in the video?",
-        "What musical instrument is played in the video?",
-        "What natural phenomenon is shown in the video?",
-        "What type of dance is performed in the video?",
-        "What type of weather is shown in the video?",
-        "What type of plant is shown in the video?",
-        "What type of fish is shown in the video?",
-        "What famous landmark is shown in the video?",
-        "What type of bird is shown in the video?",
-        "What mode of transportation is shown in the video?",
-        "What kitchen utensil is shown in the video?",
-        "What type of fabric is shown in the video?",
-        "What type of animal habitat is shown in the video?",
-        "What famous person is shown in the video?"
+        "What is meant by this single white line in the middle of the road?",
+        "What does it mean when there are 2 white lines next to each other in the middle of the road?",
+        "What should you do when your mobile phone rings while driving on the road?",
+        "What does this road sign indicate?",
+        "What should you do at a pedestrian crossing?",
+        "What is the instruction given by the shown police officer?",
+        "What does this road sign indicate?",
+        "What is the instruction given by the shown police officer?",
+        "What does this road sign indicate?",
+        "When is the use of the expressway not prohibited?",
+        "What does this road sign indicate?",
+        "What is considered a vehicle suitable for highway driving?",
+        "When should you not overtake another vehicle?",
+        "What should you do when the vehicle's tires have less air than the recommended amount?",
+        "When should hazard warning lights be turned on?",
+        "What should you do when driving in rainy weather?",
+        "What is meant by this road sign?",
+        "What should you do to reduce the risk when a vehicle skids?",
+        "When should the hazard warning lamps of a vehicle be used?",
+        "What should you do when a vehicle has met with an accident on the road?"
     };
 
     //Answers in English
     public static final Map<Integer, String[]> videoButtonTextsEn = new HashMap<>();
 
     static {
-        videoButtonTextsEn.put(0, new String[]{"animal is shown in the vide", "animal is shown in the vide", "animal is shown in the vide", "Mango animal is shown in the vide"});
-        videoButtonTextsEn.put(1, new String[]{"Mask", "Did", "Horn", "Tim"});
-        videoButtonTextsEn.put(2, new String[]{"Cat", "Dog", "Fish", "Bird"});
-        videoButtonTextsEn.put(3, new String[]{"Banana", "Car", "Apple", "Orange"});
-        videoButtonTextsEn.put(4, new String[]{"Bus", "Train", "Bicycle", "Truck"});
-        videoButtonTextsEn.put(5, new String[]{"Skyscraper", "House", "Cottage", "Cabin"});
-        videoButtonTextsEn.put(6, new String[]{"Football", "Tennis", "Basketball", "Hockey"});
-        videoButtonTextsEn.put(7, new String[]{"Piano", "Guitar", "Violin", "Drum"});
-        videoButtonTextsEn.put(8, new String[]{"Rainbow", "Tornado", "Rain", "Sunshine"});
-        videoButtonTextsEn.put(9, new String[]{"Ballet", "Jazz", "Hip-Hop", "Salsa"});
-        videoButtonTextsEn.put(10, new String[]{"Sunny", "Rainy", "Snowy", "Windy"});
-        videoButtonTextsEn.put(11, new String[]{"Rose", "Tulip", "Sunflower", "Daisy"});
-        videoButtonTextsEn.put(12, new String[]{"Goldfish", "Shark", "Salmon", "Trout"});
-        videoButtonTextsEn.put(13, new String[]{"Eiffel Tower", "Statue of Liberty", "Big Ben", "Colosseum"});
-        videoButtonTextsEn.put(14, new String[]{"Eagle", "Parrot", "Sparrow", "Pigeon"});
-        videoButtonTextsEn.put(15, new String[]{"Car", "Airplane", "Boat", "Train"});
-        videoButtonTextsEn.put(16, new String[]{"Spoon", "Fork", "Knife", "Whisk"});
-        videoButtonTextsEn.put(17, new String[]{"Cotton", "Silk", "Wool", "Denim"});
-        videoButtonTextsEn.put(18, new String[]{"Forest", "Desert", "Ocean", "Jungle"});
-        videoButtonTextsEn.put(19, new String[]{"Albert Einstein", "Leonardo da Vinci", "Marie Curie", "Isaac Newton"});
-    }
+        videoButtonTextsEn.put(0, new String[]{"Overtaking by crossing the white line is prohibited", "Used to indicate the danger of a bend", "Turning to the right is prohibited", "Line used to divide the road"});
+        videoButtonTextsEn.put(1, new String[]{"Overtaking or turning to the right by crossing the lines is prohibited", "Turning to the right is allowed", "Overtaking is allowed", "Both overtaking and turning to the right are allowed"});
+        videoButtonTextsEn.put(2, new String[]{"Stop the vehicle and then respond to the phone", "Steer with one hand and take the phone with the other hand", "Cannot respond only in urban areas", "Do not carry the phone while driving the vehicle"});
+        videoButtonTextsEn.put(3, new String[]{"Children crossing ahead", "Children crossing", "School ahead", "Blind people crossing ahead"});
+        videoButtonTextsEn.put(4, new String[]{"Pedestrians can cross only at the pedestrian crossing", "Pedestrians can cross at any place within 25 meters", "Pedestrians can cross at any place within 50 meters", "Pedestrians can cross at any place within 30 meters"});
+        videoButtonTextsEn.put(5, new String[]{"Stop", "Move forward", "Vehicles in front and behind stop", "Vehicles coming from behind stop"});
+        videoButtonTextsEn.put(6, new String[]{"Speed limit", "Speed limit within city limits", "Minimum speed", "Normal speed"});
+        videoButtonTextsEn.put(7, new String[]{"Vehicles in front and behind stop", "Vehicles coming from the front stop", "Stop", "Vehicles coming from behind stop"});
+        videoButtonTextsEn.put(8, new String[]{"Prohibitory sign", "Mandatory sign", "Warning sign", "Information sign"});
+        videoButtonTextsEn.put(9, new String[]{"For lorries", "For three-wheelers", "For land vehicles", "For motorcycles"});
+        videoButtonTextsEn.put(10, new String[]{"Road closed for all vehicles", "Parking is prohibited on even days", "Parking and loading prohibited", "Parking prohibited"});
+        videoButtonTextsEn.put(11, new String[]{"Having proper mechanical condition and required documents", "Any vehicle that the driver can control", "Only having steering, brakes, and tires", "Having the driving license and insurance certificate"});
+        videoButtonTextsEn.put(12, new String[]{"At a dangerous bend", "In front of a court", "On a road with broken lines marked", "In front of a hospital"});
+        videoButtonTextsEn.put(13, new String[]{"Tire wears quickly on both sides", "Tire wears quickly in the middle", "Tire wears quickly", "Tire wears unevenly"});
+        videoButtonTextsEn.put(14, new String[]{"When stopping a vehicle involved in an accident on the highway", "When overtaking a vehicle in a dangerous place", "When going straight at an intersection", "When transporting a patient"});
+        videoButtonTextsEn.put(15, new String[]{"Driving slowly in low gear", "Driving fast in high gear", "Driving slowly in high gear", "No need to worry if the vehicle tires are in good condition"});
+        videoButtonTextsEn.put(16, new String[]{"Slippery road ahead", "Curvy road ahead", "Narrow road ahead", "Dangerous intersection ahead"});
+        videoButtonTextsEn.put(17, new String[]{"Control the skid with the gears and gradually steer in the direction of the skid", "Turn the steering wheel in the direction of the skid without braking", "Cannot reduce the danger during a skid", "Apply brakes immediately to control speed"});
+        videoButtonTextsEn.put(18, new String[]{"When the vehicle is disabled and parked on the road", "To gain priority", "When driving straight at an intersection", "To indicate that the vehicle is traveling due to an emergency"});
+        videoButtonTextsEn.put(19, new String[]{"Can mark the vehicle's position and transport patients", "The vehicle cannot be removed for any reason", "The vehicle must be kept in the same place", "Can be removed from the road to avoid obstructing other vehicles"});
+   }
 
-    //Sinhala Questions
-    public static final String[] questionsSi = {
-        "වීඩියෝවෙහි පෙන්වන සත්ත්වයා කවරෙකි?",
-        "වීඩියෝවෙහි පෙන්වන වස්තුව කවරේද?",
-        "වීඩියෝවෙහි පෙන්වන සුරතලියා කවරෙකි?",
-        "වීඩියෝවෙහි පෙන්වන පළතුරු කවරේද?",
-        "වීඩියෝවෙහි පෙන්වන වාහනය කවරේද?",
-        "වීඩියෝවෙහි පෙන්වන ගොඩනැගිල්ල කවරේද?",
-        "වීඩියෝවෙහි ක්‍රීඩාව කවරක්ද?",
-        "වීඩියෝවෙහි වාදනය කරන සංගීත උපකරණය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන ස්වාභාවික පෙනුම කවරක්ද?",
-        "වීඩියෝවෙහි නර්තනය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන කාලගුණය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන පැළයක් කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන මසුන් කවරෙක්ද?",
-        "වීඩියෝවෙහි පෙන්වන ප්‍රසිද්ධ ස්ථානය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන කුරුල්ලෙක් කවරෙක්ද?",
-        "වීඩියෝවෙහි පෙන්වන ප්‍රවාහන ක්‍රමය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන කුස්සියේ උපකරණය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන රෙදි පටය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන සත්ත්ව පරිසරය කවරක්ද?",
-        "වීඩියෝවෙහි පෙන්වන ප්‍රසිද්ධ පුද්ගලයා කවරෙක්ද?"
+    
+//Sinhala Questions
+public static final String[] questionsSi = {
+        "පාරේ මැද ඇති මෙම තනි සුදු ඉරෙන් අදහස් වන්නේ ? ",
+        "පාරේ මැද එක ළඟින් වූ සුදු ඉරි 2ක් ඇති විට ?",
+        "ඔබ මාර්ගයේ ගමන් කරන විට මෙලෙස ජංගම දුරකථනය නාද වූවහොත් ?",
+        "මෙම මාර්ග සංඥාවෙන් දැක්වෙන්නේ",
+        "පදික මාරුවක් ඇතිවිට ",
+        "පෙන්වා ඇති පොලිස් නිළධාරියාගේ විධානය කුමක්ද?",
+        "මෙම මාර්ග සංඥාවෙන් දැක්වෙන්නේ",
+        "පෙන්වා ඇති පොලිස් නිළධාරියාගේ විධානය කුමක්ද",
+        "මෙම මාර්ග සංඥාවෙන් දැක්වෙන්නේ",
+        "අධිවේගී මාර්ගය භාවිතා කිරීම තහනම් කර නොමැති වන්නේ,",
+        " මෙම මාර්ග සංඥාවෙන් දැක්වෙන්නේ",
+        "මහාමාර්ගයේ ධාවනයට සුසුසු වාහනයක් යනු, ",
+        "ඔබ වෙනත් හාහනයක් ඉස්සර නොකල යුත්තේ,",
+        "වාහනයේ ටයරවල හුළං නියමිත ප්‍රමාණයට වඩා අඩුවූ විට ",
+        "අවදානම් හැඟවීමේ පහන් දැල්විය යුත්තේ ",
+        "වැසි සහිත කාලගුණයක් ඇති විටක වාහනය පදවන විටදී,",
+        "මෙම මාර්ග සංඥාවෙන් අදහස් වන්නේ? ",
+        "වාහනයක් ලිස්සා යන අවස්ථාවකදී අවදානම අඩුකර ගැනීම සඳහා",
+        "වාහනයක අවධානම් හැඟවීමේ ලාම්පු භාවිතා කල යුත්තේ? ",
+        "වාහනයක් මාර්ගයේ අනතුරකට ලක්වූ විටක,"
     };
 
     //Answers in Sinhala
     public static final Map<Integer, String[]> videoButtonTextsSi = new HashMap<>();
 
     static {
-        videoButtonTextsSi.put(0, new String[]{"මුස්", "උර", "ඇපල්", "අඹ"});
-        videoButtonTextsSi.put(1, new String[]{"මුව ආවරණය", "කලේය", "හෙණ", "ටිම්"});
-        videoButtonTextsSi.put(2, new String[]{"පූස", "බල්ලා", "මාළු", "කුරුල්ලෙක්"});
-        videoButtonTextsSi.put(3, new String[]{"කෙසෙල්", "මෝටර් රථයක්", "ඇපල්", "ඕරේන්ජ්"});
-        videoButtonTextsSi.put(4, new String[]{"බස් රථය", "දුම්රිය", "බයිසිකලය", "ලොරිය"});
-        videoButtonTextsSi.put(5, new String[]{"ඉහළ ගොඩනැගිල්ල", "නිවස", "කුටි කාමරය", "කැබිනය"});
-        videoButtonTextsSi.put(6, new String[]{"පෙති", "ටෙනිස්", "බාස්කට්බෝල්", "හොකී"});
-        videoButtonTextsSi.put(7, new String[]{"පියානෝ", "ගිටාර්", "වයලින්", "ඩ්රම්"});
-        videoButtonTextsSi.put(8, new String[]{"ඇඳිරිනීතිය", "සුළි කුණාටුව", "වැසි", "හිරු"});
-        videoButtonTextsSi.put(9, new String[]{"බැලේ", "ජැස්", "හිපොප්", "සැල්සා"});
-        videoButtonTextsSi.put(10, new String[]{"උණුසුම", "වැසි", "හිම", "සුළං"});
-        videoButtonTextsSi.put(11, new String[]{"රෝස", "ට්යුලිප්", "සුර්යකාන්ත", "මල් කැකුළ"});
-        videoButtonTextsSi.put(12, new String[]{"ගෝල්ඩ්ෆිෂ්", "සූර", "සැල්මන්", "ට්‍රවුට්"});
-        videoButtonTextsSi.put(13, new String[]{"අයිෆල් කුළුණ", "ස්වයං නිදහස් රුපකය", "බිග් බෑන්", "කොලිසියම්"});
-        videoButtonTextsSi.put(14, new String[]{"රජළිය", "පරිට්ටුව", "කුරුල්ලෙක්", "පිජන්"});
-        videoButtonTextsSi.put(15, new String[]{"මෝටර් රථය", "විමානය", "බෝට්ටුව", "දුම්රිය"});
-        videoButtonTextsSi.put(16, new String[]{"හන්දි", "කාම", "පිහිය", "වීදුරු"});
-        videoButtonTextsSi.put(17, new String[]{"කපු", "සෙර", "වූල්", "ඩෙනිම්"});
-        videoButtonTextsSi.put(18, new String[]{"වනාන්තර", "අහස", "මහ සයුර", "ජංගි"});
-        videoButtonTextsSi.put(19, new String[]{"ඇල්බට් අයින්ස්ටයින්", "ලියොනාර්ඩෝ ද වින්චි", "මරී කුරී", "අයිසැක් නිව්ටන්"});
+        videoButtonTextsSi.put(0, new String[]{"සුදු ඉර කැපෙන සේ ඉස්සර කිරීම තහනම්ය", "වංගුවක අවදානම පෙන්වීම සඳහා යොදා ඇත", "දකුණට හැරවීම තහනම්ය", "මාර්ගය බෙදීමට ඉර යොදා ඇත"});
+        videoButtonTextsSi.put(1, new String[]{"ඉරි කැපෙන සේ ඉස්සර කිරීම හෝ දකුණට හැරවීම තහනම්ය", "දකුණට හැරවීමට හැකිය", "ඉස්සර කිරීමට හැකිය", "දකුණට හැරවීමට හා ඉස්සර කිරීම කල හැක"});
+        videoButtonTextsSi.put(2, new String[]{"වාහනය අයින්කර නවතා දුරකථනයට ප්‍රතිචාර දැක්වීම ", "එක් අතකින් සුක්කානම ගෙන අනෙක් අතින්  දුරකථනය ගැනීම ", "නාගරික ප්‍රදේශයකදී පමණක් ප්‍රතිචාර දැක්විය නොහැක ", "වාහනයේ යනවිට දුරකතනය රැගෙන නොයාම"});
+        videoButtonTextsSi.put(3, new String[]{"ළමයින් මාරුවන ස්ථානය ඉදිරියෙනි ", "ළමයින් මාරුවන ස්ථානය ", "පාසල ඉදිරියෙනි ", "අන්ධ මිනිසුන් මාරුවන ස්ථානය ඉදිරියෙනි "});
+        videoButtonTextsSi.put(4, new String[]{"පදික මාරුව හරහා පමණක් පදිකයින්ට මාරුවිය හැක ", "මීටර 25ක් ඇතුලත ඕනෑම ස්ථානයකින් පදිකයින්ට මාරුවිය හැක", "මීටර 50ක් ඇතුලත ඕනෑම ස්ථානයකින් පදිකයින්ට මාරුවිය හැක", "මීටර 30ක් ඇතුලත ඕනෑම ස්ථානයකින් පදිකයින්ට මාරුවිය හැක"});
+        videoButtonTextsSi.put(5, new String[]{"නවතිනු", "ඉදිරියට එනු", "ඉදීරියෙන් හා පසුපසින් එන වාහන නවතිනු", "පසුපසින් පැමිණෙන වාහන නවතිනු"});
+        videoButtonTextsSi.put(6, new String[]{"වේග සීමාව", "නගර සීමාව තුළ වේග සීමාව", "අවම වේගය ", "සාමාන්‍ය වේගය"});
+        videoButtonTextsSi.put(7, new String[]{"ඉදීරියෙන් හා පසුපසින් එන වාහන නවතිනු", "ඉදීරියෙන් පැමිණෙන වාහන නවතිනු ", "නවතිනු", "පසුපසින් පැමිණෙන වාහන නවතිනු"});
+        videoButtonTextsSi.put(8, new String[]{"තහනම් සංඥාවකි", "විධාන සංඥාවකි", "අනතුරු හැඟවීමේ සංඥාවකි", "තොරතුරු සංඥාවකි "});
+        videoButtonTextsSi.put(9, new String[]{"ලොරි සඳහා", "ත්‍රීවීල් රථ සඳහා ", "ඉඩම් වාහන සඳහා ", "මෝටර් සයිකල් සඳහා "});
+        videoButtonTextsSi.put(10, new String[]{"සියළුම වාහන සඳහා පාර වසා ඇත", "ඔත්තේ දිනවල වාහන නැවැත්වීම තහනම් ", "නැවැත්වීම හා පැටවීම තහනම්", "වාහන නැවැත්වීම තහනම් "});
+        videoButtonTextsSi.put(11, new String[]{"මනා කාර්මික තත්ත්වයක් හා අවශ්‍ය ලේඛන තිබීම ", "රියදුරුට පාලනය කිරීමට හැකි ඕනෑම වාහනයක් ", "සුක්කානම, තිරිංග හා ටයර් පමණක් තිබීම ", "ආදයම් බලපත්‍රය සහ රක්ෂණ සහතිකය තිබීම "});
+        videoButtonTextsSi.put(12, new String[]{"අවදානම් වංගුවකදීය ", "උසාවියක් ඉදිරියේදීය ", "මාර්ගයක් මත කඩ ඉරි සලකුණු ඇති තැන්වලදීය", "ආරෝග්‍ය ශාලාවක් ඉදිරියේය"});
+        videoButtonTextsSi.put(13, new String[]{"ටයරය දෙපැත්ත ඉක්මනින් ගෙවීයයි ", "ටයරය මැද ඉක්මනින් ගෙවීයයි  ", "ටයරය ඉක්මනින් ගෙවීයයි ", "ටයරයේ තැනින් තැන වේගයෙන් ගෙවීයයි "});
+        videoButtonTextsSi.put(14, new String[]{"මහාමාර්ගයේ ආපදාවකට ලක්වූ වාහනයක් නවතා තබන විට  ", "අවදානම් ස්ථානයකදී වාහනයකට ඉස්සර කරන විට", "හතරමං හන්දියක කෙළින් ඉදිරියට ගමන් කරන විට ", "රෝගියෙකු ප්‍රවාහනය කරන අවස්ථාවකදී "});
+        videoButtonTextsSi.put(15, new String[]{"අඩු ගියරයක හෙමින් පැදවීම ", "වැඩි ගියරයක වේගයෙන් පැදවීම ", "වැඩි ගියරයක හෙමින් පැදවීම", "වාහනයේ ටයර් හොඳින් ඇතිවිට සැලකිලිමත්විය යුතු නැත "});
+        videoButtonTextsSi.put(16, new String[]{"ලිස්සනසුලු මාර්ගය ඉදිරියෙනි ", "වංගු සහිත මාර්ගය ඉදිරියෙනි ", "ඉදිරියෙන් මාර්ගය පටුය ", "අනතුරුදායක මංසන්ධිය ඉදිරියෙනි "});
+        videoButtonTextsSi.put(17, new String[]{"ගියර මගින් පාලනය කර ලිස්සා යන දිශාවට ක්‍රමානුකූලව සුක්කානම පාලනය ", "තිරිංග නොයොදා ලිස්සා යන දිශාවටම සුක්කානම හැරවිය යුතුය ", "ලිස්සා යන අවස්ථාවේදී අවධානම අඩුකල නොහැක", "එකවර තිරිංග යොදා වේගය පාලනය කළ යුතුය "});
+        videoButtonTextsSi.put(18, new String[]{"වාහනය අබලන්ව පාරේ නවතා තිබියදී ", "ප්‍රමුඛත්වය ලබා ගැනීමට", "හන්දියකින් කෙලින්ම ධාවනය කරන අවස්ථාවකදී ", "වාහනය හදිසි තත්ත්වයක් නිසා ගමන් කරන බව දැක්වීමට"});
+        videoButtonTextsSi.put(19, new String[]{"වාහනයේ පිහිටීම සළකුණුකොට රෝගීන් ප්‍රවාහනය කල හැක  ", "කිසිම හේතුවකට වාහනය ඉවත් කළ නොහැක ", "එම වාහනය එම ස්ථානයේම තැබිය යුතුය", "අන් වාහනවලට අවහිර වීම වැලැක්වීමට මර්ගයෙන් ඉවත් කල හැක "});
     }
 
     //Tamil Questions
     public static final String[] questionsTa = {
-        "வீடியோவில் காணப்படும் விலங்கு என்ன?",
-        "வீடியோவில் காணப்படும் பொருள் என்ன?",
-        "வீடியோவில் காணப்படும் செல்லப்பிராணி என்ன?",
-        "வீடியோவில் காணப்படும் பழம் என்ன?",
-        "வீடியோவில் காணப்படும் வாகனம் என்ன?",
-        "வீடியோவில் காணப்படும் கட்டிடம் என்ன?",
-        "வீடியோவில் விளையாடப்படும் விளையாட்டு என்ன?",
-        "வீடியோவில் வாசிக்கப்படும் இசைக்கருவி என்ன?",
-        "வீடியோவில் காணப்படும் இயற்கை நிகழ்வு என்ன?",
-        "வீடியோவில் நடன வகை என்ன?",
-        "வீடியோவில் காணப்படும் வானிலை என்ன?",
-        "வீடியோவில் காணப்படும் செடி என்ன?",
-        "வீடியோவில் காணப்படும் மீன் என்ன?",
-        "வீடியோவில் காணப்படும் புகழ்பெற்ற இடம் என்ன?",
-        "வீடியோவில் காணப்படும் பறவை என்ன?",
-        "வீடியோவில் காணப்படும் போக்குவரத்து முறை என்ன?",
-        "வீடியோவில் காணப்படும் சமையல் சாதனம் என்ன?",
-        "வீடியோவில் காணப்படும் துணி வகை என்ன?",
-        "வீடியோவில் காணப்படும் விலங்கு வாழிடம் என்ன?",
-        "வீடியோவில் காணப்படும் புகழ்பெற்ற நபர் யார்?"
+        "சாலையின் நடுவில் உள்ள இந்த ஒற்றை வெள்ளைக் கோட்டின் அர்த்தம் என்ன?",
+        "சாலையின் நடுவில் 2 வெள்ளைக் கோடுகள் அடுத்தடுத்து இருந்தால் என்ன அர்த்தம்?",
+        "சாலையில் வாகனம் ஓட்டும்போது உங்கள் மொபைல் ஃபோன் ஒலித்தால் என்ன செய்ய வேண்டும்?",
+        "இந்த சாலை அடையாளம் எதைக் குறிக்கிறது?",
+        "பாதசாரி கடக்கும் இடத்தில் நீங்கள் என்ன செய்ய வேண்டும்?",
+        "காட்டப்பட்ட போலீஸ் அதிகாரி கொடுத்த அறிவுரை என்ன?",
+        "இந்த சாலை அடையாளம் எதைக் குறிக்கிறது?",
+        "காட்டப்பட்ட போலீஸ் அதிகாரி கொடுத்த அறிவுரை என்ன?",
+        "இந்த சாலை அடையாளம் எதைக் குறிக்கிறது?",
+        "எப்போது எக்ஸ்பிரஸ்வேயின் பயன்பாடு தடை செய்யப்படவில்லை?",
+        "இந்த சாலை அடையாளம் எதைக் குறிக்கிறது?",
+        "நெடுஞ்சாலை ஓட்டுவதற்கு ஏற்ற வாகனம் எது?",
+        "நீங்கள் எப்போது மற்றொரு வாகனத்தை முந்திச் செல்லக்கூடாது?",
+        "வாகனத்தின் டயர்களில் பரிந்துரைக்கப்பட்ட அளவை விட குறைவான காற்று இருக்கும்போது நீங்கள் என்ன செய்ய வேண்டும்?",
+        "அபாய எச்சரிக்கை விளக்குகளை எப்போது இயக்க வேண்டும்?",
+        "மழை காலநிலையில் வாகனம் ஓட்டும்போது என்ன செய்ய வேண்டும்?",
+        "இந்த சாலை அடையாளத்தின் அர்த்தம் என்ன?",
+        "வாகனம் சறுக்கும் போது ஏற்படும் ஆபத்தை குறைக்க என்ன செய்ய வேண்டும்?",
+        "வாகனத்தின் அபாய எச்சரிக்கை விளக்குகளை எப்போது பயன்படுத்த வேண்டும்?",
+        "சாலையில் ஒரு வாகனம் விபத்துக்குள்ளானால் நீங்கள் என்ன செய்ய வேண்டும்?"
     };
 
     // Answers in Tamil
     public static final Map<Integer, String[]> videoButtonTextsTa = new HashMap<>();
 
-    static {
-        videoButtonTextsTa.put(0, new String[]{"மூஸ்", "வெள்ளாடு", "ஆப்பிள்", "மாம்பழம்"});
-        videoButtonTextsTa.put(1, new String[]{"முக கவசம்", "செய்தது", "கொம்பு", "டிம்"});
-        videoButtonTextsTa.put(2, new String[]{"பூனை", "நாய்", "மீன்", "பறவை"});
-        videoButtonTextsTa.put(3, new String[]{"வாழைப்பழம்", "கார்", "ஆப்பிள்", "ஆரஞ்சு"});
-        videoButtonTextsTa.put(4, new String[]{"பஸ்", "ரயில்", "மிதிவண்டி", "லாரி"});
-        videoButtonTextsTa.put(5, new String[]{"ஆகாயசாளரம்", "வீடு", "குடிசை", "மோடை"});
-        videoButtonTextsTa.put(6, new String[]{"கால்பந்து", "டென்னிஸ்", "விளையாட்டுப் பந்து", "ஹாக்கி"});
-        videoButtonTextsTa.put(7, new String[]{"பியானோ", "கிட்டார்", "வயலின்", "மிருதங்கம்"});
-        videoButtonTextsTa.put(8, new String[]{"வானவில்", "சூறாவளி", "மழை", "வெயில்"});
-        videoButtonTextsTa.put(9, new String[]{"பாலே", "ஜாஸ்", "ஹிப்-ஹாப்", "சால்சா"});
-        videoButtonTextsTa.put(10, new String[]{"வெயில்", "மழை", "பனிச்சாரல்", "காற்று"});
-        videoButtonTextsTa.put(11, new String[]{"ரோஜா", "தூலிப் பூ", "சூரியகாந்தி", "டெய்ஸி"});
-        videoButtonTextsTa.put(12, new String[]{"கோல்ட்ஃபிஷ்", "சுறா", "சால்மன்", "ட்ரவுட்"});
-        videoButtonTextsTa.put(13, new String[]{"ஐஃபெல் கோபுரம்", "சுதந்திர சிலை", "பிக் பென்", "கோலிசியம்"});
-        videoButtonTextsTa.put(14, new String[]{"கழுகு", "கிளி", "சிட்டுக்குருவி", "புறா"});
-        videoButtonTextsTa.put(15, new String[]{"கார்", "விமானம்", "படகு", "ரயில்"});
-        videoButtonTextsTa.put(16, new String[]{"கரண்டி", "முள்", "கத்தி", "விசிறி"});
-        videoButtonTextsTa.put(17, new String[]{"காட்டன்", "பட்டு", "கம்பளி", "டெனிம்"});
-        videoButtonTextsTa.put(18, new String[]{"காடு", "பாலைவனம்", "கடல்", "காட்டில்"});
-        videoButtonTextsTa.put(19, new String[]{"ஆல்பர்ட் ஐன்ஸ்டீன்", "லியோனார்டோ டா வின்சி", "மேரி கியூரி", "ஐசக் நியூட்டன்"});
-    }
-    
+static {
+    videoButtonTextsTa.put(0, new String[]{"வெள்ளை கோடு கடக்கக் கூடாது", "வளைவு அபாயத்தை சுட்டிக்காட்ட பயன்படுத்தப்படுகிறது", "வலது பக்கம் திருப்பம் தடைசெய்யப்பட்டுள்ளது", "சாலை பிரிக்க கோடு பயன்படுத்தப்படுகிறது"});
+    videoButtonTextsTa.put(1, new String[]{"கோடுகளை கடந்து முன்னேற்றம் அல்லது வலது பக்கம் திருப்பம் தடைசெய்யப்பட்டுள்ளது", "வலது பக்கம் திருப்பம் அனுமதிக்கப்படுகிறது", "முன்னேற்றம் அனுமதிக்கப்படுகிறது", "முன்னேற்றம் மற்றும் வலது பக்கம் திருப்பம் இரண்டும் அனுமதிக்கப்படுகிறது"});
+    videoButtonTextsTa.put(2, new String[]{"வாகனத்தை நிறுத்தி பிறகு தொலைபேசிக்கு பதிலளிக்கவும்", "ஒரு கையால் ஸ்டீயரிங் பிடித்து மற்ற கையால் தொலைபேசியை எடுக்கவும்", "நகர்ப்புற பகுதிகளில் மட்டும் பதிலளிக்க முடியாது", "வாகனம் ஓட்டும் போது தொலைபேசியை கொண்டு செல்லக் கூடாது"});
+    videoButtonTextsTa.put(3, new String[]{"முன்னிலையில் குழந்தைகள் கடப்பது", "குழந்தைகள் கடக்க", "பள்ளி முன்", "முன்னிலையில் கண் பார்வை இல்லாதவர்கள் கடப்பது"});
+    videoButtonTextsTa.put(4, new String[]{"நடைபாதை கடக்கையில் மட்டுமே பாதசாரிகள் கடக்க முடியும்", "25 மீட்டர் உள்ளே எங்கும் பாதசாரிகள் கடக்க முடியும்", "50 மீட்டர் உள்ளே எங்கும் பாதசாரிகள் கடக்க முடியும்", "30 மீட்டர் உள்ளே எங்கும் பாதசாரிகள் கடக்க முடியும்"});
+    videoButtonTextsTa.put(5, new String[]{"நிறுத்து", "முன்னேறு", "முன் மற்றும் பின் வாகனங்கள் நிறுத்து", "பின் வரும் வாகனங்கள் நிறுத்து"});
+    videoButtonTextsTa.put(6, new String[]{"வேகம் வரம்பு", "நகர எல்லையின் உள்ளே வேகம் வரம்பு", "குறைந்தபட்ச வேகம்", "சாதாரண வேகம்"});
+    videoButtonTextsTa.put(7, new String[]{"முன் மற்றும் பின் வாகனங்கள் நிறுத்து", "முன்னே வரும் வாகனங்கள் நிறுத்து", "நிறுத்து", "பின் வரும் வாகனங்கள் நிறுத்து"});
+    videoButtonTextsTa.put(8, new String[]{"தடைச் சின்னம்", "கட்டாயச் சின்னம்", "எச்சரிக்கை சின்னம்", "தகவல் சின்னம்"});
+    videoButtonTextsTa.put(9, new String[]{"லாரிகளுக்கு", "மூன்று சக்கர வாகனங்களுக்கு", "மணல் வாகனங்களுக்கு", "மோட்டார் சைக்கிள்களுக்கு"});
+    videoButtonTextsTa.put(10, new String[]{"அனைத்து வாகனங்களுக்கும் சாலை மூடப்பட்டது", "சம எண்ணிக் கடினங்களில் நிறுத்தம் தடைசெய்யப்பட்டது", "நிறுத்தம் மற்றும் ஏற்றம் தடைசெய்யப்பட்டது", "நிறுத்தம் தடைசெய்யப்பட்டது"});
+    videoButtonTextsTa.put(11, new String[]{"சரியான இயந்திரநிலை மற்றும் தேவையான ஆவணங்கள் இருக்கின்றன", "இயக்குநர் கட்டுப்படுத்தக்கூடிய எந்தவொரு வாகனமும்", "ஸ்டீயரிங், பிரேக் மற்றும் டயர்கள் மட்டும் இருக்கின்றன", "டிரைவர் உரிமம் மற்றும் காப்பீட்டு சான்றிதழ் இருக்கின்றன"});
+    videoButtonTextsTa.put(12, new String[]{"ஆபத்தான வளைவில்", "நீதிமன்றத்தின் முன்", "நெடுநேர கடமையிலான சாலையில்", "மருத்துவமனையின் முன்"});
+    videoButtonTextsTa.put(13, new String[]{"டயர் இரு பக்கங்களிலும் விரைவாக kulikka", "டயர் நடுவில் விரைவாக kulikka", "டயர் விரைவாக kulikka", "டயர் unevenly kulikka"});
+    videoButtonTextsTa.put(14, new String[]{"நெடுஞ்சாலையில் விபத்தில் சிக்கிய வாகனத்தை நிறுத்தும்போது", "ஆபத்தான இடத்தில் வாகனத்தை முன்நோக்கிச் செல்லும்போது", "சந்தியில் நேராக செல்லும்போது", "நோயாளியை எடுத்துச் செல்லும் போது"});
+    videoButtonTextsTa.put(15, new String[]{"குறைந்த கியரில் மெதுவாக ஓட்டுதல்", "மேல்நிலைக் கியரில் வேகமாக ஓட்டுதல்", "மேல்நிலைக் கியரில் மெதுவாக ஓட்டுதல்", "வாகன டயர்கள் நல்ல நிலையிலிருந்தால் கவலைப்பட தேவையில்லை"});
+    videoButtonTextsTa.put(16, new String[]{"முன்னிலையில் சரிவிலுள்ள சாலை", "முன்னிலையில் வளைந்த சாலை", "முன்னிலையில் குறுகிய சாலை", "முன்னிலையில் ஆபத்தான சந்திப்பு"});
+    videoButtonTextsTa.put(17, new String[]{"கியர் மூலம் கட்டுப்படுத்தி, மெதுவாக ஸ்டீயரிங் வைத்துக் கொண்டு skiddirection inக்கு சீர்படுத்தவும்", "பிரேக் இல்லாமல் skiddirectionக்கு ஸ்டீயரிங் திருப்பவும்", "skidஅதிர்ச்சி குறைக்க முடியாது", "வேகத்தை கட்டுப்படுத்த உடனடியாக பிரேக் பயன்படுத்தவும்"});
+    videoButtonTextsTa.put(18, new String[]{"வாகனம் செயலிழந்தபோது சாலையில் நிறுத்தியபோது", "முதன்மை பெற", "சந்தியில் நேராக செல்கையில்", "அவசரநிலைக்கு வாகனம் பயணம் செய்கிறது என்பதைக் காட்ட"});
+    videoButtonTextsTa.put(19, new String[]{"வாகனத்தின் நிலையைச் சுட்டிக்காட்டி நோயாளியை எடுத்துச் செல்ல முடியும்", "எந்தவொரு காரணத்தாலும் வாகனத்தை நகர்த்த முடியாது", "வாகனம் அசையாமல் இருக்க வேண்டும்", "பிற வாகனங்களுக்கு தடையாக இருக்காமல் சாலையில் இருந்து நகர்த்த முடியும்"});
+}
+
+
     public static String[] getQuestions(String language) {
         switch (language) {
             case "Sinhala":

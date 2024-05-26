@@ -82,16 +82,15 @@ public class TestScreen extends javax.swing.JFrame {
             }
         });
 
-        if (selectedLanguage == "Sinhala") {
+        if (selectedLanguage.equals("Sinhala")) {
             startButton.setText("ආරම්භ කරන්න");
             backBtn.setText("ආපසු");
             confirmButton.setText("තහවුරු කරන්න");
-
-        } else if (selectedLanguage == "Tamil") {
+            
+        } else if (selectedLanguage.equals("Tamil")) {
             startButton.setText("தொடங்கு");
             backBtn.setText("ஆதரி");
             confirmButton.setText("உறுதி செய்");
-
         }
 
     }
@@ -109,6 +108,7 @@ public class TestScreen extends javax.swing.JFrame {
             // Creating a MediaView to display the video
             MediaView mediaView = new MediaView(mediaPlayer);
             mediaView.setPreserveRatio(true);
+            
 
             Group group = new Group();
             group.getChildren().add(mediaView);
@@ -158,7 +158,7 @@ public class TestScreen extends javax.swing.JFrame {
 
             for (int i = 0; i < 4; i++) {
                 buttons[i] = new JButton();
-                buttons[i].setPreferredSize(new Dimension(400, 40)); // Set preferred size
+                buttons[i].setPreferredSize(new Dimension(550, 40)); // Set preferred size
                 buttons[i].setFont(buttonFont);
                 buttons[i].setVisible(false); // Make buttons visible
 
@@ -257,7 +257,7 @@ public class TestScreen extends javax.swing.JFrame {
                         //SHOW STATUS FRAME
                         disposeMediaPlayer();
                         Platform.setImplicitExit(false);
-                        SwingUtilities.invokeLater(() -> new StatusFrame(selectedLanguage, score,nicNo).setVisible(true));
+                        SwingUtilities.invokeLater(() -> new StatusFrame(selectedLanguage, score, nicNo).setVisible(true));
                         //this.dispose();
 
                     }
@@ -339,24 +339,26 @@ private void resizeMediaView(Component container, Media media, MediaView mediaVi
             // Calculate the scaled dimensions
             double scaledWidth, scaledHeight;
 
-            // Adjust the size of the mediaView based on the aspect ratio
+            // Check if the video aspect ratio is wider than the container aspect ratio
             if (videoAspectRatio > containerAspectRatio) {
-                // Video is wider, adjust height
+                // Video is wider, fit width to container and adjust height accordingly
                 scaledWidth = newWidth;
-                scaledHeight = newWidth / videoAspectRatio;
+                scaledHeight = scaledWidth / videoAspectRatio;
             } else {
-                // Video is taller, adjust width
-                scaledWidth = newHeight * videoAspectRatio;
+                // Video is taller, fit height to container and adjust width accordingly
                 scaledHeight = newHeight;
+                scaledWidth = scaledHeight * videoAspectRatio;
             }
+
+            // Set the dimensions of the MediaView to fit inside the container
+            mediaView.setFitWidth(scaledWidth);
+            mediaView.setFitHeight(scaledHeight);
 
             // Center the MediaView within the container
             double offsetX = (newWidth - scaledWidth) / 2;
             double offsetY = (newHeight - scaledHeight) / 2;
 
-            // Set the dimensions and position of the MediaView
-            mediaView.setFitWidth(scaledWidth);
-            mediaView.setFitHeight(scaledHeight);
+            // Set the position of the MediaView
             mediaView.setTranslateX(offsetX);
             mediaView.setTranslateY(offsetY);
         } else {
@@ -368,6 +370,7 @@ private void resizeMediaView(Component container, Media media, MediaView mediaVi
         System.err.println("Media or mediaView is not properly initialized.");
     }
 }
+
 
 
     private void disposeMediaPlayer() {

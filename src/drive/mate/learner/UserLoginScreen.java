@@ -45,7 +45,7 @@ public class UserLoginScreen extends javax.swing.JFrame {
             loginbtn.setText("User Login");
             // Other English-specific customizations
         } else if (selectedLanguage.equals("Sinhala")) {
-            loginbtn.setText("හැඳුනුම්පත");
+            loginbtn.setText("පරිශීලක ඇතුළුවීම");
             // Other Sinhala-specific customizations
         } else if (selectedLanguage.equals("Tamil")) {
             loginbtn.setText("பயனர் உள்நுழைவு");

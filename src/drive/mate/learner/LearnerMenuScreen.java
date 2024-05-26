@@ -50,19 +50,22 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             logoutBtn.setText("පිටවීම");
             menulbl.setText("ප්‍රධාන මෙනුව");
             namelbl.setText("නම");
-            getMaterialsbtn.setText("ඉගෙනුම් ද්රව්ය");
+            getMaterialsbtn.setText("ඉගෙනුම් උපකාරක");
             getExambtn.setText("පරීක්ෂණය");
-            
-            
 
         } else if (selectedLanguage == "Tamil") {
             logoutBtn.setText("வெளியேறு");
-            menulbl.setText("முதன்மை பட்டியல்");
+            menulbl.setText("மெனு");
             namelbl.setText("பெயர்");
-            getMaterialsbtn.setText("கற்கும் திரவியம்");
-            getExambtn.setText("தேர்வு");
+            getMaterialsbtn.setText("கற்றுக்கொள்ள பெற");
+            getExambtn.setText("தேர்வு பெற");
             
-
+        } else if (selectedLanguage == "English") {
+            logoutBtn.setText("Logout");
+            menulbl.setText("Main Menu");
+            namelbl.setText("Name");
+            getMaterialsbtn.setText("Learning Materials");
+            getExambtn.setText("Test");
         }
     }
 
