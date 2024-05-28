@@ -86,7 +86,7 @@ public class TestScreen extends javax.swing.JFrame {
             startButton.setText("ආරම්භ කරන්න");
             backBtn.setText("ආපසු");
             confirmButton.setText("තහවුරු කරන්න");
-            
+
         } else if (selectedLanguage.equals("Tamil")) {
             startButton.setText("தொடங்கு");
             backBtn.setText("ஆதரி");
@@ -107,8 +107,8 @@ public class TestScreen extends javax.swing.JFrame {
 
             // Creating a MediaView to display the video
             MediaView mediaView = new MediaView(mediaPlayer);
-            mediaView.setPreserveRatio(true);
-            
+            mediaView.setFitWidth(1920);
+            mediaView.setFitHeight(1080);
 
             Group group = new Group();
             group.getChildren().add(mediaView);
@@ -255,7 +255,7 @@ public class TestScreen extends javax.swing.JFrame {
                         confirmButton.setVisible(false);
 
                         //SHOW STATUS FRAME
-                        disposeMediaPlayer();
+                        //disposeMediaPlayer();
                         Platform.setImplicitExit(false);
                         SwingUtilities.invokeLater(() -> new StatusFrame(selectedLanguage, score, nicNo).setVisible(true));
                         //this.dispose();
@@ -284,7 +284,7 @@ public class TestScreen extends javax.swing.JFrame {
             jPanel.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
-                    resizeMediaView(jPanel, media, mediaView);
+                    resizeMediaView(jPanel, mediaView);
                 }
             });
 
@@ -292,7 +292,7 @@ public class TestScreen extends javax.swing.JFrame {
             container.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
-                    resizeMediaView(container, media, mediaView);
+                    resizeMediaView(container, mediaView);
                     // Request a layout update to adjust the size of the videoPanel
                     videoPanel.revalidate();
                 }
@@ -316,68 +316,61 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-private void resizeMediaView(Component container, Media media, MediaView mediaView) {
+private void resizeMediaView(Component container, MediaView mediaView) {
     // Get the new size of the container
     Dimension newSize = container.getSize();
     double newWidth = newSize.getWidth();
     double newHeight = newSize.getHeight();
 
-    // Ensure media and mediaView are properly initialized
-    if (media != null && mediaView != null) {
-        // Get the original dimensions of the video
-        double originalWidth = media.getWidth();
-        double originalHeight = media.getHeight();
+    // Set the original dimensions of the video
+    double originalWidth = 1920; // Original width of the video
+    double originalHeight = 1080; // Original height of the video
 
-        // Ensure original dimensions are valid
-        if (originalWidth > 0 && originalHeight > 0) {
-            // Calculate the aspect ratio of the video
-            double videoAspectRatio = originalWidth / originalHeight;
+    // Ensure original dimensions are valid
+    if (originalWidth > 0 && originalHeight > 0) {
+        // Calculate the aspect ratio of the video
+        double videoAspectRatio = originalWidth / originalHeight;
 
-            // Calculate the aspect ratio of the container
-            double containerAspectRatio = newWidth / newHeight;
+        // Calculate the aspect ratio of the container
+        double containerAspectRatio = newWidth / newHeight;
 
-            // Calculate the scaled dimensions
-            double scaledWidth, scaledHeight;
+        // Calculate the scaled dimensions
+        double scaledWidth, scaledHeight;
 
-            // Check if the video aspect ratio is wider than the container aspect ratio
-            if (videoAspectRatio > containerAspectRatio) {
-                // Video is wider, fit width to container and adjust height accordingly
-                scaledWidth = newWidth;
-                scaledHeight = scaledWidth / videoAspectRatio;
-            } else {
-                // Video is taller, fit height to container and adjust width accordingly
-                scaledHeight = newHeight;
-                scaledWidth = scaledHeight * videoAspectRatio;
-            }
-
-            // Set the dimensions of the MediaView to fit inside the container
-            mediaView.setFitWidth(scaledWidth);
-            mediaView.setFitHeight(scaledHeight);
-
-            // Center the MediaView within the container
-            double offsetX = (newWidth - scaledWidth) / 2;
-            double offsetY = (newHeight - scaledHeight) / 2;
-
-            // Set the position of the MediaView
-            mediaView.setTranslateX(offsetX);
-            mediaView.setTranslateY(offsetY);
+        // Check if the video aspect ratio is wider than the container aspect ratio
+        if (videoAspectRatio > containerAspectRatio) {
+            // Video is wider, fit width to container and adjust height accordingly
+            scaledWidth = newWidth;
+            scaledHeight = scaledWidth / videoAspectRatio;
         } else {
-            // Handle invalid original dimensions
-            System.err.println("Invalid original dimensions of the video.");
+            // Video is taller, fit height to container and adjust width accordingly
+            scaledHeight = newHeight;
+            scaledWidth = scaledHeight * videoAspectRatio;
         }
+
+        // Set the dimensions of the MediaView to fit inside the container
+        mediaView.setFitWidth(scaledWidth);
+        mediaView.setFitHeight(scaledHeight);
+
+        // Center the MediaView within the container
+        double offsetX = (newWidth - scaledWidth) / 2;
+        double offsetY = (newHeight - scaledHeight) / 2;
+
+        // Set the position of the MediaView
+        mediaView.setTranslateX(offsetX);
+        mediaView.setTranslateY(offsetY);
     } else {
-        // Handle uninitialized media or mediaView
-        System.err.println("Media or mediaView is not properly initialized.");
+        // Handle invalid original dimensions
+        System.err.println("Invalid original dimensions of the video.");
     }
 }
-
 
 
     private void disposeMediaPlayer() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.dispose();
-            mediaPlayer = null; // Reset mediaPlayer to null after disposal
+            mediaPlayer = null;
         }
     }
 
