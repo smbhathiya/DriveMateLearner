@@ -20,9 +20,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.JButton;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -45,9 +49,6 @@ public class TestScreen extends javax.swing.JFrame {
     private int score = 0;
     private String selectedAnswer = null;
 
-    /**
-     * Creates new form TestScreen
-     */
     private JLabel questionLabel;
     private JButton[] buttons = new JButton[4];
     private String[] questions;
@@ -61,7 +62,7 @@ public class TestScreen extends javax.swing.JFrame {
     String formattedTime = currentTime.format(timeFormatter);
 
     Font questionFont = new Font("Nirmala UI", Font.BOLD, 16);
-    Font buttonFont = new Font("Nirmala UI", Font.PLAIN, 14);
+    Font buttonFont = new Font("Nirmala UI", Font.BOLD, 16);
 
     JButton confirmButton = new JButton("Confirm");
 
@@ -158,8 +159,10 @@ public class TestScreen extends javax.swing.JFrame {
 
             for (int i = 0; i < 4; i++) {
                 buttons[i] = new JButton();
-                buttons[i].setPreferredSize(new Dimension(550, 40)); // Set preferred size
+                buttons[i].setPreferredSize(new Dimension(550, 65)); // Set preferred size
                 buttons[i].setFont(buttonFont);
+                buttons[i].setForeground(new java.awt.Color(0x1F1F1F));
+                buttons[i].setBackground(new java.awt.Color(0xFFFF00));
                 buttons[i].setVisible(false); // Make buttons visible
 
                 // Add buttons to respective rows
@@ -176,6 +179,18 @@ public class TestScreen extends javax.swing.JFrame {
                     selectedAnswer = buttons[answerIndex].getText();
                     System.out.println("Selected answer: " + selectedAnswer);
                 });
+
+                buttons[i].addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        buttons[answerIndex].setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        buttons[answerIndex].setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
+                });
+                
             }
 
             buttonPanel.add(buttonRow1);
@@ -255,7 +270,7 @@ public class TestScreen extends javax.swing.JFrame {
                         confirmButton.setVisible(false);
 
                         //SHOW STATUS FRAME
-                        //disposeMediaPlayer();
+                        disposeMediaPlayer();
                         Platform.setImplicitExit(false);
                         SwingUtilities.invokeLater(() -> new StatusFrame(selectedLanguage, score, nicNo).setVisible(true));
                         //this.dispose();
@@ -310,61 +325,91 @@ public class TestScreen extends javax.swing.JFrame {
         if (currentVideoIndex <= questions.length) {
             List<String> answers = new ArrayList<>(List.of(videoButtonTexts.get(currentVideoIndex - 1)));
             Collections.shuffle(answers);
+
             for (int i = 0; i < 4; i++) {
-                buttons[i].setText(answers.get(i));
+                String answer = answers.get(i);
+                buttons[i].setText(formatButtonText(buttons[i], answer));
             }
         }
     }
 
-private void resizeMediaView(Component container, MediaView mediaView) {
-    // Get the new size of the container
-    Dimension newSize = container.getSize();
-    double newWidth = newSize.getWidth();
-    double newHeight = newSize.getHeight();
+    private String formatButtonText(JButton button, String text) {
+        FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
+        int maxWidth = button.getPreferredSize().width;
 
-    // Set the original dimensions of the video
-    double originalWidth = 1920; // Original width of the video
-    double originalHeight = 1080; // Original height of the video
-
-    // Ensure original dimensions are valid
-    if (originalWidth > 0 && originalHeight > 0) {
-        // Calculate the aspect ratio of the video
-        double videoAspectRatio = originalWidth / originalHeight;
-
-        // Calculate the aspect ratio of the container
-        double containerAspectRatio = newWidth / newHeight;
-
-        // Calculate the scaled dimensions
-        double scaledWidth, scaledHeight;
-
-        // Check if the video aspect ratio is wider than the container aspect ratio
-        if (videoAspectRatio > containerAspectRatio) {
-            // Video is wider, fit width to container and adjust height accordingly
-            scaledWidth = newWidth;
-            scaledHeight = scaledWidth / videoAspectRatio;
-        } else {
-            // Video is taller, fit height to container and adjust width accordingly
-            scaledHeight = newHeight;
-            scaledWidth = scaledHeight * videoAspectRatio;
+        if (fontMetrics.stringWidth(text) <= maxWidth) {
+            return text;
         }
 
-        // Set the dimensions of the MediaView to fit inside the container
-        mediaView.setFitWidth(scaledWidth);
-        mediaView.setFitHeight(scaledHeight);
+        // Calculate the middle point to break the text
+        int middle = text.length() / 2;
 
-        // Center the MediaView within the container
-        double offsetX = (newWidth - scaledWidth) / 2;
-        double offsetY = (newHeight - scaledHeight) / 2;
+        // Ensure breaking at a point that doesn't split multi-byte characters
+        while (middle > 0 && !Character.isWhitespace(text.charAt(middle))) {
+            middle--;
+        }
 
-        // Set the position of the MediaView
-        mediaView.setTranslateX(offsetX);
-        mediaView.setTranslateY(offsetY);
-    } else {
-        // Handle invalid original dimensions
-        System.err.println("Invalid original dimensions of the video.");
+        // If we don't find a whitespace character, just split at the middle point
+        if (middle == 0) {
+            middle = text.length() / 2;
+        }
+
+        // Split the text into two lines
+        String firstLine = text.substring(0, middle).trim();
+        String secondLine = text.substring(middle).trim();
+
+        // Return the formatted text with two lines
+        return String.format("<html><center>%s<br>%s</center></html>", firstLine, secondLine);
     }
-}
 
+    private void resizeMediaView(Component container, MediaView mediaView) {
+        // Get the new size of the container
+        Dimension newSize = container.getSize();
+        double newWidth = newSize.getWidth();
+        double newHeight = newSize.getHeight();
+
+        // Set the original dimensions of the video
+        double originalWidth = 1920; // Original width of the video
+        double originalHeight = 1080; // Original height of the video
+
+        // Ensure original dimensions are valid
+        if (originalWidth > 0 && originalHeight > 0) {
+            // Calculate the aspect ratio of the video
+            double videoAspectRatio = originalWidth / originalHeight;
+
+            // Calculate the aspect ratio of the container
+            double containerAspectRatio = newWidth / newHeight;
+
+            // Calculate the scaled dimensions
+            double scaledWidth, scaledHeight;
+
+            // Check if the video aspect ratio is wider than the container aspect ratio
+            if (videoAspectRatio > containerAspectRatio) {
+                // Video is wider, fit width to container and adjust height accordingly
+                scaledWidth = newWidth;
+                scaledHeight = scaledWidth / videoAspectRatio;
+            } else {
+                // Video is taller, fit height to container and adjust width accordingly
+                scaledHeight = newHeight;
+                scaledWidth = scaledHeight * videoAspectRatio;
+            }
+
+            // Set the dimensions of the MediaView to fit inside the container
+            mediaView.setFitWidth(scaledWidth);
+            mediaView.setFitHeight(scaledHeight);
+
+            // Center the MediaView within the container
+            double offsetX = (newWidth - scaledWidth) / 2;
+            double offsetY = (newHeight - scaledHeight) / 2;
+
+            // Set the position of the MediaView
+            mediaView.setTranslateX(offsetX);
+            mediaView.setTranslateY(offsetY);
+        } else {
+            // Handle invalid original dimensions
+            System.err.println("Invalid original dimensions of the video.");
+        }
+    }
 
     private void disposeMediaPlayer() {
         if (mediaPlayer != null) {
@@ -395,7 +440,7 @@ private void resizeMediaView(Component container, MediaView mediaView) {
 
         videoPanel.setBackground(new java.awt.Color(31, 31, 31));
         videoPanel.setForeground(new java.awt.Color(204, 204, 204));
-        videoPanel.setPreferredSize(new java.awt.Dimension(1200, 1000));
+        videoPanel.setPreferredSize(new java.awt.Dimension(1180, 1000));
 
         startButton.setBackground(new java.awt.Color(204, 204, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
@@ -414,9 +459,9 @@ private void resizeMediaView(Component container, MediaView mediaView) {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(462, Short.MAX_VALUE)
+                .addContainerGap(455, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(488, Short.MAX_VALUE))
+                .addContainerGap(481, Short.MAX_VALUE))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,9 +476,9 @@ private void resizeMediaView(Component container, MediaView mediaView) {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1186, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

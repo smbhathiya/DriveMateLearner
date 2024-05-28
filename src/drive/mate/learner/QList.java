@@ -47,7 +47,7 @@ public class QList {
         videoButtonTextsEn.put(7, new String[]{"Vehicles in front and behind stop", "Vehicles coming from the front stop", "Stop", "Vehicles coming from behind stop"});
         videoButtonTextsEn.put(8, new String[]{"Prohibitory sign", "Mandatory sign", "Warning sign", "Information sign"});
         videoButtonTextsEn.put(9, new String[]{"For lorries", "For three-wheelers", "For land vehicles", "For motorcycles"});
-        videoButtonTextsEn.put(10, new String[]{"Road closed for all vehicles", "Parking is prohibited on even days", "Parking and loading prohibited", "Parking prohibited"});
+        videoButtonTextsEn.put(10, new String[]{"Parking prohibited", "Parking is prohibited on even days", "Parking and loading prohibited", "Road closed for all vehicles"});
         videoButtonTextsEn.put(11, new String[]{"Having proper mechanical condition and required documents", "Any vehicle that the driver can control", "Only having steering, brakes, and tires", "Having the driving license and insurance certificate"});
         videoButtonTextsEn.put(12, new String[]{"At a dangerous bend", "In front of a court", "On a road with broken lines marked", "In front of a hospital"});
         videoButtonTextsEn.put(13, new String[]{"Tire wears quickly on both sides", "Tire wears quickly in the middle", "Tire wears quickly", "Tire wears unevenly"});
@@ -98,7 +98,7 @@ public static final String[] questionsSi = {
         videoButtonTextsSi.put(7, new String[]{"ඉදීරියෙන් හා පසුපසින් එන වාහන නවතිනු", "ඉදීරියෙන් පැමිණෙන වාහන නවතිනු ", "නවතිනු", "පසුපසින් පැමිණෙන වාහන නවතිනු"});
         videoButtonTextsSi.put(8, new String[]{"තහනම් සංඥාවකි", "විධාන සංඥාවකි", "අනතුරු හැඟවීමේ සංඥාවකි", "තොරතුරු සංඥාවකි "});
         videoButtonTextsSi.put(9, new String[]{"ලොරි සඳහා", "ත්‍රීවීල් රථ සඳහා ", "ඉඩම් වාහන සඳහා ", "මෝටර් සයිකල් සඳහා "});
-        videoButtonTextsSi.put(10, new String[]{"සියළුම වාහන සඳහා පාර වසා ඇත", "ඔත්තේ දිනවල වාහන නැවැත්වීම තහනම් ", "නැවැත්වීම හා පැටවීම තහනම්", "වාහන නැවැත්වීම තහනම් "});
+        videoButtonTextsSi.put(10, new String[]{"වාහන නැවැත්වීම තහනම්", "ඔත්තේ දිනවල වාහන නැවැත්වීම තහනම් ", "නැවැත්වීම හා පැටවීම තහනම්", "සියළුම වාහන සඳහා පාර වසා ඇත"});
         videoButtonTextsSi.put(11, new String[]{"මනා කාර්මික තත්ත්වයක් හා අවශ්‍ය ලේඛන තිබීම ", "රියදුරුට පාලනය කිරීමට හැකි ඕනෑම වාහනයක් ", "සුක්කානම, තිරිංග හා ටයර් පමණක් තිබීම ", "ආදයම් බලපත්‍රය සහ රක්ෂණ සහතිකය තිබීම "});
         videoButtonTextsSi.put(12, new String[]{"අවදානම් වංගුවකදීය ", "උසාවියක් ඉදිරියේදීය ", "මාර්ගයක් මත කඩ ඉරි සලකුණු ඇති තැන්වලදීය", "ආරෝග්‍ය ශාලාවක් ඉදිරියේය"});
         videoButtonTextsSi.put(13, new String[]{"ටයරය දෙපැත්ත ඉක්මනින් ගෙවීයයි ", "ටයරය මැද ඉක්මනින් ගෙවීයයි  ", "ටයරය ඉක්මනින් ගෙවීයයි ", "ටයරයේ තැනින් තැන වේගයෙන් ගෙවීයයි "});
@@ -148,7 +148,7 @@ static {
     videoButtonTextsTa.put(7, new String[]{"முன் மற்றும் பின் வாகனங்கள் நிறுத்து", "முன்னே வரும் வாகனங்கள் நிறுத்து", "நிறுத்து", "பின் வரும் வாகனங்கள் நிறுத்து"});
     videoButtonTextsTa.put(8, new String[]{"தடைச் சின்னம்", "கட்டாயச் சின்னம்", "எச்சரிக்கை சின்னம்", "தகவல் சின்னம்"});
     videoButtonTextsTa.put(9, new String[]{"லாரிகளுக்கு", "மூன்று சக்கர வாகனங்களுக்கு", "மணல் வாகனங்களுக்கு", "மோட்டார் சைக்கிள்களுக்கு"});
-    videoButtonTextsTa.put(10, new String[]{"அனைத்து வாகனங்களுக்கும் சாலை மூடப்பட்டது", "சம எண்ணிக் கடினங்களில் நிறுத்தம் தடைசெய்யப்பட்டது", "நிறுத்தம் மற்றும் ஏற்றம் தடைசெய்யப்பட்டது", "நிறுத்தம் தடைசெய்யப்பட்டது"});
+    videoButtonTextsTa.put(10, new String[]{"நிறுத்தம் தடைசெய்யப்பட்டது", "சம எண்ணிக் கடினங்களில் நிறுத்தம் தடைசெய்யப்பட்டது", "நிறுத்தம் மற்றும் ஏற்றம் தடைசெய்யப்பட்டது", "அனைத்து வாகனங்களுக்கும் சாலை மூடப்பட்டது"});
     videoButtonTextsTa.put(11, new String[]{"சரியான இயந்திரநிலை மற்றும் தேவையான ஆவணங்கள் இருக்கின்றன", "இயக்குநர் கட்டுப்படுத்தக்கூடிய எந்தவொரு வாகனமும்", "ஸ்டீயரிங், பிரேக் மற்றும் டயர்கள் மட்டும் இருக்கின்றன", "டிரைவர் உரிமம் மற்றும் காப்பீட்டு சான்றிதழ் இருக்கின்றன"});
     videoButtonTextsTa.put(12, new String[]{"ஆபத்தான வளைவில்", "நீதிமன்றத்தின் முன்", "நெடுநேர கடமையிலான சாலையில்", "மருத்துவமனையின் முன்"});
     videoButtonTextsTa.put(13, new String[]{"டயர் இரு பக்கங்களிலும் விரைவாக kulikka", "டயர் நடுவில் விரைவாக kulikka", "டயர் விரைவாக kulikka", "டயர் unevenly kulikka"});
