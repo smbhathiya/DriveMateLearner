@@ -4,6 +4,7 @@
  */
 package drive.mate.learner;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.String;
@@ -36,20 +37,21 @@ public class UserLoginScreen extends javax.swing.JFrame {
         });
         // Customize UI based on the selected language
         customizeUI();
-        
+
     }
 
     private void customizeUI() {
-        // Example: Set labels, button text, etc. based on selected language
+
         if (selectedLanguage.equals("English")) {
-            loginbtn.setText("User Login");
-            // Other English-specific customizations
+            loginbtn.setText("USER LOGIN");
+
         } else if (selectedLanguage.equals("Sinhala")) {
             loginbtn.setText("පරිශීලක ඇතුළුවීම");
-            // Other Sinhala-specific customizations
+            backBtn.setText("ආපසු");
+
         } else if (selectedLanguage.equals("Tamil")) {
             loginbtn.setText("பயனர் உள்நுழைவு");
-            // Other Tamil-specific customizations
+            backBtn.setText("ஆதரி");
         }
     }
 
@@ -66,13 +68,34 @@ public class UserLoginScreen extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         getNIC = new javax.swing.JTextField();
         loginbtn = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        backBtn = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(31, 31, 31));
 
-        loginbtn.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(31, 31, 31));
+
+        getNIC.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        getNIC.setForeground(new java.awt.Color(255, 255, 255));
+        getNIC.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        getNIC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 0)));
+        getNIC.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        getNIC.setPreferredSize(new java.awt.Dimension(280, 55));
+        getNIC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                getNICKeyPressed(evt);
+            }
+        });
+
+        loginbtn.setBackground(new java.awt.Color(255, 255, 0));
+        loginbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        loginbtn.setForeground(new java.awt.Color(31, 31, 31));
         loginbtn.setText("Login");
+        loginbtn.setBorder(null);
+        loginbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginbtn.setPreferredSize(new java.awt.Dimension(280, 55));
         loginbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginbtnActionPerformed(evt);
@@ -84,20 +107,20 @@ public class UserLoginScreen extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(268, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(getNIC)
-                    .addComponent(loginbtn, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
-                .addContainerGap(301, Short.MAX_VALUE))
+                    .addComponent(getNIC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loginbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(148, Short.MAX_VALUE)
-                .addComponent(getNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(268, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE)
+                .addComponent(getNIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(loginbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -110,6 +133,18 @@ public class UserLoginScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/back.png"))); // NOI18N
+        backBtn.setText("BACK");
+        backBtn.setFont(new java.awt.Font("Nirmala UI", 1, 12)); // NOI18N
+        backBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backBtnMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(backBtn);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,26 +177,35 @@ public class UserLoginScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginbtnActionPerformed
 
-    public static boolean isUserAvailable(String nicNo) {
-    boolean userAvailable = false;
+    private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
+        new SelectLanguage().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_backBtnMouseClicked
 
-    try (Connection connection = DatabaseConnection.getConnection();
-         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM users WHERE nicno = ?")) {
-
-        stmt.setString(1, nicNo);
-        try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                // User exists
-                userAvailable = true;
-            }
+    private void getNICKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_getNICKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            loginbtn.doClick();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
-    return userAvailable;
-}
+    }//GEN-LAST:event_getNICKeyPressed
 
-    
+    public static boolean isUserAvailable(String nicNo) {
+        boolean userAvailable = false;
+
+        try (Connection connection = DatabaseConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement("SELECT * FROM users WHERE nicno = ?")) {
+
+            stmt.setString(1, nicNo);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // User exists
+                    userAvailable = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userAvailable;
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -198,7 +242,9 @@ public class UserLoginScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu backBtn;
     private javax.swing.JTextField getNIC;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginbtn;

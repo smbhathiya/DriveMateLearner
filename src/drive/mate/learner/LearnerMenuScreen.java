@@ -61,11 +61,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             getExambtn.setText("தேர்வு பெற");
             
         } else if (selectedLanguage == "English") {
-            logoutBtn.setText("Logout");
-            menulbl.setText("Main Menu");
-            namelbl.setText("Name");
-            getMaterialsbtn.setText("Learning Materials");
-            getExambtn.setText("Test");
+            logoutBtn.setText("LOGOUT");
+            menulbl.setText("MAIN MENU");
+            namelbl.setText("NAME");
+            getMaterialsbtn.setText("LEARNING MATERIALS");
+            getExambtn.setText("TEST");
         }
     }
 
@@ -128,18 +128,24 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
         jLabel3.setText("NIC :");
 
+        getExambtn.setBackground(new java.awt.Color(255, 255, 0));
         getExambtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        getExambtn.setForeground(new java.awt.Color(31, 31, 31));
         getExambtn.setText("TEST");
         getExambtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getExambtn.setPreferredSize(new java.awt.Dimension(250, 80));
         getExambtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getExambtnActionPerformed(evt);
             }
         });
 
+        getMaterialsbtn.setBackground(new java.awt.Color(255, 255, 0));
         getMaterialsbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        getMaterialsbtn.setText("Leaning Materials");
+        getMaterialsbtn.setForeground(new java.awt.Color(31, 31, 31));
+        getMaterialsbtn.setText("learning materials");
         getMaterialsbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getMaterialsbtn.setPreferredSize(new java.awt.Dimension(250, 80));
         getMaterialsbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getMaterialsbtnActionPerformed(evt);
@@ -179,10 +185,10 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                         .addGap(125, 125, 125))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(getMaterialsbtn)
+                        .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
-                        .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(527, Short.MAX_VALUE))
+                        .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,9 +205,9 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                     .addComponent(usernamelbl))
                 .addGap(75, 75, 75)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getMaterialsbtn))
-                .addContainerGap(372, Short.MAX_VALUE))
+                    .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(328, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {getExambtn, getMaterialsbtn});

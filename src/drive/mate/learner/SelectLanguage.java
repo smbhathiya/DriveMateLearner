@@ -4,11 +4,14 @@
  */
 package drive.mate.learner;
 
-
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JButton;
 
 /**
  *
@@ -24,7 +27,6 @@ public class SelectLanguage extends javax.swing.JFrame {
     public SelectLanguage() {
         initComponents();
 
-
         this.setExtendedState(this.MAXIMIZED_BOTH);
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 
@@ -34,6 +36,21 @@ public class SelectLanguage extends javax.swing.JFrame {
                 AlertMessages.conformExit(); // Call the method from AlertMessages class
             }
         });
+        
+                // Set default background color
+        Color defaultColor = Color.decode("#FFFF00");
+        Color hoverColor = Color.decode("#D8D822");
+
+        // Apply default background color
+        englishbtn.setBackground(defaultColor);
+        sinhalabtn.setBackground(defaultColor);
+        tamilbtn.setBackground(defaultColor);
+        
+        
+        // Add hover effect
+        addHoverEffect(englishbtn, defaultColor, hoverColor);
+        addHoverEffect(sinhalabtn, defaultColor, hoverColor);
+        addHoverEffect(tamilbtn, defaultColor, hoverColor);
 
         // Add action listeners to the buttons
         englishbtn.addActionListener(new ActionListener() {
@@ -54,6 +71,22 @@ public class SelectLanguage extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 selectedLanguage = "Tamil";
                 openUserLoginScreen(selectedLanguage);
+            }
+        });
+
+       
+    }
+    
+        private void addHoverEffect(JButton button, Color defaultColor, Color hoverColor) {
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(hoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(defaultColor);
             }
         });
     }
@@ -86,24 +119,42 @@ public class SelectLanguage extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(31, 31, 31));
 
-        tamilbtn.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        tamilbtn.setBackground(new java.awt.Color(255, 255, 0));
+        tamilbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        tamilbtn.setForeground(new java.awt.Color(31, 31, 31));
         tamilbtn.setText("தமிழ்");
+        tamilbtn.setBorder(null);
+        tamilbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tamilbtn.setPreferredSize(new java.awt.Dimension(200, 60));
 
-        englishbtn.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        englishbtn.setBackground(new java.awt.Color(255, 255, 0));
+        englishbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        englishbtn.setForeground(new java.awt.Color(31, 31, 31));
         englishbtn.setText("English");
+        englishbtn.setBorder(null);
+        englishbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        englishbtn.setPreferredSize(new java.awt.Dimension(200, 60));
 
-        sinhalabtn.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        sinhalabtn.setBackground(new java.awt.Color(255, 255, 0));
+        sinhalabtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
+        sinhalabtn.setForeground(new java.awt.Color(31, 31, 31));
         sinhalabtn.setText("සිංහල");
+        sinhalabtn.setBorder(null);
+        sinhalabtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sinhalabtn.setPreferredSize(new java.awt.Dimension(200, 60));
 
-        jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SELECT YOUR LANGUAGE");
 
-        jLabel2.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்");
 
-        jLabel3.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ඔබේ භාෂාව තෝරන්න");
 
@@ -111,20 +162,20 @@ public class SelectLanguage extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(englishbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(sinhalabtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(tamilbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addContainerGap(200, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(englishbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(sinhalabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(tamilbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -133,19 +184,19 @@ public class SelectLanguage extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel3)
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
-                .addGap(70, 70, 70)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tamilbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tamilbtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(sinhalabtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(englishbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(213, Short.MAX_VALUE))
+                        .addComponent(sinhalabtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(englishbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(216, Short.MAX_VALUE))
         );
 
         pack();
