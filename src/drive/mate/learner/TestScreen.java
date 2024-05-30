@@ -104,6 +104,7 @@ public class TestScreen extends javax.swing.JFrame {
 
             JFXPanel fxPanel = new JFXPanel();
             Media media = new Media(new File(videoPath).toURI().toString());
+            disposeMediaPlayer(); // Dispose of the previous mediaPlayer before creating a new one
             mediaPlayer = new MediaPlayer(media);
 
             // Creating a MediaView to display the video
@@ -185,12 +186,13 @@ public class TestScreen extends javax.swing.JFrame {
                     public void mouseEntered(MouseEvent e) {
                         buttons[answerIndex].setCursor(new Cursor(Cursor.HAND_CURSOR));
                     }
+
                     @Override
                     public void mouseExited(MouseEvent e) {
                         buttons[answerIndex].setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
                 });
-                
+
             }
 
             buttonPanel.add(buttonRow1);
@@ -218,7 +220,7 @@ public class TestScreen extends javax.swing.JFrame {
                     if (currentVideoIndex <= questions.length) {
                         String nextVideoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";
                         Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
-                        mediaPlayer.stop();
+                        disposeMediaPlayer();
                         mediaPlayer = new MediaPlayer(nextMedia);
                         mediaView.setMediaPlayer(mediaPlayer);
                         mediaPlayer.play();
@@ -307,13 +309,10 @@ public class TestScreen extends javax.swing.JFrame {
             container.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
-                    resizeMediaView(container, mediaView);
-                    // Request a layout update to adjust the size of the videoPanel
-                    videoPanel.revalidate();
+                    resizeMediaView(jPanel, mediaView);
                 }
             });
 
-            // Play the video
             mediaPlayer.play();
 
         } catch (Exception e) {
@@ -333,34 +332,38 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-    private String formatButtonText(JButton button, String text) {
-        FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
-        int maxWidth = button.getPreferredSize().width;
+private String formatButtonText(JButton button, String text) {
+    FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
+    int maxWidth = button.getWidth();
 
-        if (fontMetrics.stringWidth(text) <= maxWidth) {
-            return text;
-        }
-
-        // Calculate the middle point to break the text
-        int middle = text.length() / 2;
-
-        // Ensure breaking at a point that doesn't split multi-byte characters
-        while (middle > 0 && !Character.isWhitespace(text.charAt(middle))) {
-            middle--;
-        }
-
-        // If we don't find a whitespace character, just split at the middle point
-        if (middle == 0) {
-            middle = text.length() / 2;
-        }
-
-        // Split the text into two lines
-        String firstLine = text.substring(0, middle).trim();
-        String secondLine = text.substring(middle).trim();
-
-        // Return the formatted text with two lines
-        return String.format("<html><center>%s<br>%s</center></html>", firstLine, secondLine);
+    // If text fits in a single line, return as is
+    if (fontMetrics.stringWidth(text) <= maxWidth) {
+        return text;
     }
+
+    // Find the index to break the text
+    int breakIndex = 0;
+    int currentWidth = 0;
+    for (int i = 0; i < text.length(); i++) {
+        char c = text.charAt(i);
+        int charWidth = fontMetrics.charWidth(c);
+        currentWidth += charWidth;
+        if (currentWidth > maxWidth) {
+            breakIndex = i;
+            break;
+        }
+    }
+
+    // Construct the two lines
+    String firstLine = text.substring(0, breakIndex).trim();
+    String secondLine = text.substring(breakIndex).trim();
+
+    // Return the formatted text with two lines, centered horizontally and vertically
+    return String.format("<html><center><div style='text-align: center; vertical-align: middle;'>%s<br>%s</div></center></html>", firstLine, secondLine);
+}
+
+
+
 
     private void resizeMediaView(Component container, MediaView mediaView) {
         // Get the new size of the container
@@ -444,8 +447,9 @@ public class TestScreen extends javax.swing.JFrame {
 
         startButton.setBackground(new java.awt.Color(204, 204, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
-        startButton.setForeground(new java.awt.Color(51, 51, 51));
+        startButton.setForeground(new java.awt.Color(31, 31, 31));
         startButton.setText("START");
+        startButton.setBorder(null);
         startButton.setMaximumSize(new java.awt.Dimension(200, 80));
         startButton.setPreferredSize(new java.awt.Dimension(250, 60));
         startButton.addActionListener(new java.awt.event.ActionListener() {

@@ -46,21 +46,21 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             }
         });
 
-        if (selectedLanguage == "Sinhala") {
+        if(selectedLanguage.equals("Sinhala")) {
             logoutBtn.setText("පිටවීම");
             menulbl.setText("ප්‍රධාන මෙනුව");
             namelbl.setText("නම");
             getMaterialsbtn.setText("ඉගෙනුම් උපකාරක");
             getExambtn.setText("පරීක්ෂණය");
 
-        } else if (selectedLanguage == "Tamil") {
+        } else if (selectedLanguage.equals("Tamil")) {
             logoutBtn.setText("வெளியேறு");
             menulbl.setText("மெனு");
             namelbl.setText("பெயர்");
             getMaterialsbtn.setText("கற்றுக்கொள்ள பெற");
             getExambtn.setText("தேர்வு பெற");
             
-        } else if (selectedLanguage == "English") {
+        } else if (selectedLanguage.equals("English")){
             logoutBtn.setText("LOGOUT");
             menulbl.setText("MAIN MENU");
             namelbl.setText("NAME");
