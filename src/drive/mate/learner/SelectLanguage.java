@@ -39,7 +39,7 @@ public class SelectLanguage extends javax.swing.JFrame {
         
                 // Set default background color
         Color defaultColor = Color.decode("#FFFF00");
-        Color hoverColor = Color.decode("#D8D822");
+    Color hoverColor = Color.decode("#D8D822");
 
         // Apply default background color
         englishbtn.setBackground(defaultColor);

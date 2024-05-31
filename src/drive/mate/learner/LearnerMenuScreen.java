@@ -9,6 +9,38 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.*;
 import drive.mate.learner.SelectLanguage;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import org.apache.commons.lang3.text.WordUtils;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
 /**
  *
@@ -46,7 +78,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             }
         });
 
-        if(selectedLanguage.equals("Sinhala")) {
+        if (selectedLanguage.equals("Sinhala")) {
             logoutBtn.setText("පිටවීම");
             menulbl.setText("ප්‍රධාන මෙනුව");
             namelbl.setText("නම");
@@ -59,8 +91,8 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
             namelbl.setText("பெயர்");
             getMaterialsbtn.setText("கற்றுக்கொள்ள பெற");
             getExambtn.setText("தேர்வு பெற");
-            
-        } else if (selectedLanguage.equals("English")){
+
+        } else if (selectedLanguage.equals("English")) {
             logoutBtn.setText("LOGOUT");
             menulbl.setText("MAIN MENU");
             namelbl.setText("NAME");
@@ -87,6 +119,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         }
 
         return userName;
+    }
+    
+        //Get Enum count
+    private static String[] getEnumNames(Class<? extends Enum<?>> e) {
+        return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }
 
     /**
@@ -132,6 +169,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getExambtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         getExambtn.setForeground(new java.awt.Color(31, 31, 31));
         getExambtn.setText("TEST");
+        getExambtn.setBorder(null);
         getExambtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getExambtn.setPreferredSize(new java.awt.Dimension(250, 80));
         getExambtn.addActionListener(new java.awt.event.ActionListener() {
@@ -144,6 +182,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getMaterialsbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         getMaterialsbtn.setForeground(new java.awt.Color(31, 31, 31));
         getMaterialsbtn.setText("learning materials");
+        getMaterialsbtn.setBorder(null);
         getMaterialsbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         getMaterialsbtn.setPreferredSize(new java.awt.Dimension(250, 80));
         getMaterialsbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -225,9 +264,196 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_getExambtnActionPerformed
 
+
     private void getMaterialsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getMaterialsbtnActionPerformed
-        OpenPDF.openPDF(selectedLanguage);
+        pdfList(selectedLanguage);
     }//GEN-LAST:event_getMaterialsbtnActionPerformed
+
+    enum Folder {
+        biginers_tips, past_papers, road_signs
+    }
+
+    private void pdfList(String language) {
+
+        String frameTitle = null;
+
+        String pdfPath = System.getProperty("user.dir");
+
+//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//        int screenWidth = (int) screenSize.getWidth();
+//        int screenHeight = (int) screenSize.getHeight();
+        JFrame pdfListFrame = new JFrame("PDF List");
+        pdfListFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        pdfListFrame.setSize(1000, 600);
+        pdfListFrame. setExtendedState(JFrame.MAXIMIZED_BOTH);
+        pdfListFrame.setLayout(new BorderLayout());
+
+        pdfListFrame.setLocationByPlatform(true);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(1, 3, 10, 10));
+
+//        int color = 1;
+        for (String subFolder : getEnumNames(Folder.class)) {
+
+            JPanel column = new JPanel();
+            column.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+//            column.setBackground(color == 1 ? new Color(255, 255, 0) : color == 2 ? new Color(153, 255, 153) : color == 3 ? new Color(255, 102, 102) : null);
+            column.setLayout(new BoxLayout(column, BoxLayout.Y_AXIS));
+
+            JLabel columnLabel = new JLabel(WordUtils.capitalizeFully(subFolder, '_').replace("_", " "), SwingConstants.CENTER);
+            columnLabel.setFont(new Font("Nirmala UI,", Font.BOLD, 18));
+            columnLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            columnLabel.setForeground(Color.WHITE);
+            column.add(columnLabel);
+            column.add(Box.createVerticalStrut(10));
+
+            File folder = new File(pdfPath + "/resources/pdf/" + language.toLowerCase() + "/" + subFolder);
+            List<String> pdfs = findPDFFiles(folder);
+
+            for (String pdf : pdfs) {
+                JButton button = new JButton(pdf);
+//                button.setFont(new Font("Serif", Font.PLAIN, 18));
+                button.setMaximumSize(new Dimension(250, 30));
+                button.setPreferredSize(new Dimension(250, 30));
+                button.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                button.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getClickCount() == 1) {
+                            onPDFItemClick(pdf, language, subFolder);
+                        }
+                    }
+
+                });
+
+//                button.addActionListener(new ActionListener() {
+//                    @Override
+//                    public void actionPerformed(ActionEvent e) {
+//                        onPDFItemClick(pdf, language, subFolder);
+//                    }
+//
+//                });
+                column.add(button);
+                column.add(Box.createVerticalStrut(10));
+            }
+
+            JScrollPane scrollPane = new JScrollPane(column);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+            mainPanel.add(scrollPane);
+
+//            color++;
+        }
+
+        pdfListFrame.add(mainPanel, BorderLayout.CENTER);
+
+        switch (language) {
+            case "Sinhala":
+                frameTitle = "පන්ති කාමරය";
+                break;
+            case "English":
+                frameTitle = "Class Room";
+                break;
+            case "Tamil":
+                frameTitle = "வகுப்பறை";
+                break;
+
+        }
+
+        JLabel titleLabel = new JLabel(frameTitle, SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Nirmala UI", Font.BOLD, 24));
+        pdfListFrame.add(titleLabel, BorderLayout.NORTH);
+
+        pdfListFrame.setVisible(true);
+
+    }
+
+    private void onPDFItemClick(String selectedPDF, String language, String subFolder) {
+        System.out.println(language);
+        System.out.println(language.toLowerCase());
+        System.out.println("PDF clicked **: " + selectedPDF);
+        try {
+            String pdfPath = System.getProperty("user.dir");// + "/resources/pdf/" + language.toLowerCase() + "/" + selectedPDF;
+            File pdfFile = new File(pdfPath + "/resources/pdf/" + language.toLowerCase() + "/" + subFolder + "/" + selectedPDF);
+            System.out.println(pdfFile.exists());
+            System.out.println(pdfFile);
+
+            if (pdfFile.exists()) {
+                System.out.println("pdf file exits");
+//                Desktop.getDesktop().open(pdfFile);
+                displayPDF(pdfFile);
+            } else {
+                System.out.println("File not found: " + pdfFile.getAbsolutePath());
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private List<String> findPDFFiles(File folder) {
+        List<String> filesList = new ArrayList<>();
+
+        if (folder.exists() && folder.isDirectory()) {
+            File[] files = folder.listFiles((dir, name) -> name.toLowerCase().endsWith(".pdf"));
+            if (files != null) {
+                for (File file : files) {
+                    filesList.add(file.getName());
+                }
+            } else {
+                System.out.println("The folder is empty or can't access.");
+            }
+        } else {
+            System.out.println("The seleted folder does not exist or is not a directory.");
+        }
+        System.out.println("Pdf found:" + filesList);
+        return filesList;
+    }
+
+    private void displayPDF(File pdfFile) {
+          new PDFViewerFrame(pdfFile,900,600).setVisible(true);
+//        try (PDDocument document = Loader.loadPDF(pdfFile)) {
+//
+//            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//            int screenWidth = (int) screenSize.getWidth();
+//            int screenHeight = (int) screenSize.getHeight();
+//
+//            JFrame jframe = new JFrame("PDF Viewer");
+//            jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//            jframe.setSize(screenWidth, screenHeight);
+//
+//            JPanel mainPanel = new JPanel();
+//            mainPanel.setLayout(new BorderLayout());
+//
+//            PDFRenderer pdfRenderer = new PDFRenderer(document);
+//
+//            BufferedImage image = pdfRenderer.renderImageWithDPI(0, 300, ImageType.RGB); // Render first page at 300 DPI
+//
+//            double scaleX = (double) screenWidth / image.getWidth();
+//            double scaleY = (double) screenHeight / image.getHeight();
+//            double scale = Math.min(scaleX, scaleY);
+//
+//            AffineTransform at = AffineTransform.getScaleInstance(scale, scale);
+//            AffineTransformOp scaleOp = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+//            BufferedImage scaledImage = scaleOp.filter(image, null);
+//
+//            JLabel pdfLabel = new JLabel(new ImageIcon(scaledImage));
+//            mainPanel.removeAll();
+//            mainPanel.add(new JScrollPane(pdfLabel), BorderLayout.CENTER);
+//            mainPanel.revalidate();
+//            mainPanel.repaint();
+//
+//            jframe.add(mainPanel);
+//
+//            jframe.setVisible(true);
+//        } catch (IOException ex) {
+//            java.util.logging.Logger.getLogger(LearnerMenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+    }
+
 
     /**
      * @param args the command line arguments

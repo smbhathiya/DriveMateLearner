@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConnection {
 
-private static final String DB_URL = "jdbc:mysql://localhost:3306/drivematedb";
+    // Default database URL, user, and password
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "";
 
@@ -24,7 +24,8 @@ private static final String DB_URL = "jdbc:mysql://localhost:3306/drivematedb";
     public static Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                String dbURL = getDatabaseURL();
+                connection = DriverManager.getConnection(dbURL, DB_USER, DB_PASSWORD);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -40,6 +41,19 @@ private static final String DB_URL = "jdbc:mysql://localhost:3306/drivematedb";
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    // Method to get the database URL based on the operating system
+    private static String getDatabaseURL() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.contains("win")) {
+            return "jdbc:mysql://localhost:3306/drivematedb"; // Windows - port 3306
+        } else if (osName.contains("mac")) {
+            return "jdbc:mysql://localhost:3308/drivematedb"; // Mac - port 3308
+        } else {
+            // Default to port 3306 for other operating systems
+            return "jdbc:mysql://localhost:3306/drivematedb";
         }
     }
 }
