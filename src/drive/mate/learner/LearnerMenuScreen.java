@@ -15,6 +15,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -120,8 +121,8 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
 
         return userName;
     }
-    
-        //Get Enum count
+
+    //Get Enum count
     private static String[] getEnumNames(Class<? extends Enum<?>> e) {
         return Arrays.stream(e.getEnumConstants()).map(Enum::name).toArray(String[]::new);
     }
@@ -270,7 +271,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_getMaterialsbtnActionPerformed
 
     enum Folder {
-        biginers_tips, past_papers, road_signs
+        beginers_tips, past_papers, road_signs
     }
 
     private void pdfList(String language) {
@@ -286,7 +287,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         pdfListFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         pdfListFrame.setSize(1000, 600);
-        pdfListFrame. setExtendedState(JFrame.MAXIMIZED_BOTH);
+        pdfListFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         pdfListFrame.setLayout(new BorderLayout());
 
         pdfListFrame.setLocationByPlatform(true);
@@ -314,9 +315,13 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
 
             for (String pdf : pdfs) {
                 JButton button = new JButton(pdf);
-//                button.setFont(new Font("Serif", Font.PLAIN, 18));
-                button.setMaximumSize(new Dimension(250, 30));
-                button.setPreferredSize(new Dimension(250, 30));
+                button.setMaximumSize(new Dimension(250, 45));
+                button.setPreferredSize(new Dimension(250, 45));
+                button.setForeground(new java.awt.Color(31, 31, 31));
+                button.setFont(new Font("Nirmala UI", Font.BOLD, 16));
+                button.setBackground(new java.awt.Color(255, 255, 0));
+                button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+                button.setBorder(BorderFactory.createEmptyBorder());
                 button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
                 button.addMouseListener(new MouseAdapter() {
@@ -356,7 +361,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                 frameTitle = "පන්ති කාමරය";
                 break;
             case "English":
-                frameTitle = "Class Room";
+                frameTitle = "CLASS ROOM";
                 break;
             case "Tamil":
                 frameTitle = "வகுப்பறை";
@@ -365,7 +370,9 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         }
 
         JLabel titleLabel = new JLabel(frameTitle, SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Nirmala UI", Font.BOLD, 24));
+        titleLabel.setForeground(new java.awt.Color(255, 255, 0));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 30, 20));
+        titleLabel.setFont(new Font("Nirmala UI", Font.BOLD, 34));
         pdfListFrame.add(titleLabel, BorderLayout.NORTH);
 
         pdfListFrame.setVisible(true);
@@ -414,7 +421,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     }
 
     private void displayPDF(File pdfFile) {
-          new PDFViewerFrame(pdfFile,900,600).setVisible(true);
+        new PDFViewerFrame(pdfFile, 900, 600).setVisible(true);
 //        try (PDDocument document = Loader.loadPDF(pdfFile)) {
 //
 //            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -453,7 +460,6 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
 //            java.util.logging.Logger.getLogger(LearnerMenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
     }
-
 
     /**
      * @param args the command line arguments
