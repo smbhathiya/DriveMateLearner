@@ -30,7 +30,7 @@ public class DriveMateLearner {
         pb.setVisible(true);
         try{
             for(int x=0;x<=100;x++){
-                Thread.sleep(15);
+                Thread.sleep(25);
                 pb.lbl.setText(Integer.toString(x)+"%");
                 pb.jProgressBar.setValue(x);
             }
