@@ -34,9 +34,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import org.apache.commons.lang3.text.WordUtils;
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -172,7 +174,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getExambtn.setText("TEST");
         getExambtn.setBorder(null);
         getExambtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getExambtn.setPreferredSize(new java.awt.Dimension(250, 80));
+        getExambtn.setPreferredSize(new java.awt.Dimension(350, 80));
         getExambtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getExambtnActionPerformed(evt);
@@ -185,7 +187,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getMaterialsbtn.setText("learning materials");
         getMaterialsbtn.setBorder(null);
         getMaterialsbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getMaterialsbtn.setPreferredSize(new java.awt.Dimension(250, 80));
+        getMaterialsbtn.setPreferredSize(new java.awt.Dimension(350, 80));
         getMaterialsbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getMaterialsbtnActionPerformed(evt);
@@ -209,33 +211,32 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(80, 80, 80)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(menulbl)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(namelbl))
-                                .addGap(15, 15, 15)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(usernamelbl)
-                                    .addComponent(nicnolbl))))
-                        .addGap(125, 125, 125))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(311, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(namelbl))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(usernamelbl)
+                    .addComponent(nicnolbl))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 284, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(290, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(menulbl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(30, 30, 30)
                 .addComponent(menulbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(namelbl)
                     .addComponent(nicnolbl))
@@ -243,11 +244,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(usernamelbl))
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(328, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {getExambtn, getMaterialsbtn});
@@ -256,8 +257,36 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        new SelectLanguage().setVisible(true);
-        this.dispose();
+        UIManager.put("OptionPane.messageFont", new Font("Nirmala UI", Font.PLAIN, 14));
+        UIManager.put("OptionPane.buttonFont", new Font("Nirmala UI", Font.PLAIN, 14));
+
+        String msg;
+
+        switch (selectedLanguage) {
+            case "Sinhala":
+                msg = "ඔබට පිටවීමට අවශ්‍ය බව විශ්වාසද?";
+                break;
+            case "Tamil":
+                msg = "நிச்சயமாக வெளியேற விரும்புகிறீர்களா?";
+                break;
+            case "English":
+            default: 
+                msg = "Are you sure you want to log out?";
+                break;
+        }
+
+        int response = JOptionPane.showConfirmDialog(
+                null,
+                msg,
+                "Confirm Logout",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (response == JOptionPane.YES_OPTION) {
+            new SelectLanguage().setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_logoutBtnMouseClicked
 
     private void getExambtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getExambtnActionPerformed
