@@ -4,11 +4,15 @@
  */
 package drive.mate.learner;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.lang.String;
 import java.sql.*;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,7 +41,28 @@ public class UserLoginScreen extends javax.swing.JFrame {
         });
         // Customize UI based on the selected language
         customizeUI();
+        
+                // Set default background color
+        Color defaultColor = Color.decode("#FFFF00");
+        Color hoverColor = Color.decode("#D8D822");
+        
+        loginbtn.setBackground(defaultColor);
+        addHoverEffect(loginbtn, defaultColor, hoverColor);
 
+    }
+    
+    private void addHoverEffect(JButton button, Color defaultColor, Color hoverColor) {
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                button.setBackground(hoverColor);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                button.setBackground(defaultColor);
+            }
+        });
     }
 
     private void customizeUI() {
