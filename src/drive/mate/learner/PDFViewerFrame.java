@@ -20,7 +20,7 @@ public class PDFViewerFrame extends JFrame {
     private final File pdfFile;
     private float currentDPI = 100; // Initial DPI value
 
-   public PDFViewerFrame(File pdfFile, int width, int height) {
+    public PDFViewerFrame(File pdfFile, int width, int height) {
         this.pdfFile = pdfFile;
         setTitle("PDF Viewer");
         setSize(width, height);
@@ -49,7 +49,7 @@ public class PDFViewerFrame extends JFrame {
             JScrollPane scrollPane = new JScrollPane(panel);
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-            
+
             scrollPane.addMouseWheelListener(new MouseWheelListener() {
                 @Override
                 public void mouseWheelMoved(MouseWheelEvent e) {
@@ -65,10 +65,18 @@ public class PDFViewerFrame extends JFrame {
             });
 
             // Add zoom-in and zoom-out buttons
-            JButton zoomInButton = new JButton("Zoom In");
+            JButton zoomInButton = new JButton("+");
+            zoomInButton.setFont(new Font("Nirmala UI", Font.BOLD, 26));
+            zoomInButton.setPreferredSize(new Dimension(50, 40));
+            zoomInButton.setBackground(Color.YELLOW);
+            zoomInButton.setForeground(new Color(31, 31, 31));
             zoomInButton.addActionListener(new ZoomInActionListener());
 
-            JButton zoomOutButton = new JButton("Zoom Out");
+            JButton zoomOutButton = new JButton("-");
+            zoomOutButton.setFont(new Font("Nirmala UI", Font.BOLD, 26));
+            zoomOutButton.setPreferredSize(new Dimension(50, 40));
+            zoomOutButton.setBackground(Color.YELLOW);
+            zoomOutButton.setForeground(new Color(31, 31, 31));
             zoomOutButton.addActionListener(new ZoomOutActionListener());
 
             // Create a panel for the buttons
@@ -105,8 +113,6 @@ public class PDFViewerFrame extends JFrame {
             reloadPDF();
         }
     }
-    
-    
 
     private void reloadPDF() {
         // Get the content pane

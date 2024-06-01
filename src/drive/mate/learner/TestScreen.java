@@ -1,5 +1,6 @@
 package drive.mate.learner;
 
+import static drive.mate.learner.LearnerMenuScreen.selectedLanguage;
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -35,6 +36,8 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -53,6 +56,8 @@ public class TestScreen extends javax.swing.JFrame {
     private JButton[] buttons = new JButton[4];
     private String[] questions;
     private Map<Integer, String[]> videoButtonTexts;
+    
+    int answersCount =1;
 
     LocalDate currentDate = LocalDate.now();
     LocalTime currentTime = LocalTime.now();
@@ -62,7 +67,7 @@ public class TestScreen extends javax.swing.JFrame {
     String formattedTime = currentTime.format(timeFormatter);
 
     Font questionFont = new Font("Nirmala UI", Font.BOLD, 16);
-    Font buttonFont = new Font("Nirmala UI", Font.BOLD, 16);
+    Font buttonFont = new Font("Nirmala UI", Font.BOLD, 14);
 
     JButton confirmButton = new JButton("Confirm");
 
@@ -176,7 +181,7 @@ public class TestScreen extends javax.swing.JFrame {
                 // Add action listener to buttons
                 final int answerIndex = i;
                 buttons[i].addActionListener((ActionEvent e) -> {
-                    // Handle button click
+                    // Update the selected answer immediately upon selection
                     selectedAnswer = buttons[answerIndex].getText();
                     System.out.println("Selected answer: " + selectedAnswer);
                 });
@@ -325,45 +330,27 @@ public class TestScreen extends javax.swing.JFrame {
             List<String> answers = new ArrayList<>(List.of(videoButtonTexts.get(currentVideoIndex - 1)));
             Collections.shuffle(answers);
 
+            String correctAnswer = videoButtonTexts.get(currentVideoIndex - 1)[0];
+            System.out.println("Question No. " + answersCount);
+            answersCount += 1;
+
             for (int i = 0; i < 4; i++) {
                 String answer = answers.get(i);
                 buttons[i].setText(formatButtonText(buttons[i], answer));
+                // Check if the answer matches the correct answer AND selectedAnswer is null
+                if (answer.equals(correctAnswer) && selectedAnswer == null) {
+                    selectedAnswer = buttons[i].getText();
+                }
             }
         }
     }
 
-private String formatButtonText(JButton button, String text) {
-    FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
-    int maxWidth = button.getWidth();
+    private String formatButtonText(JButton button, String text) {
+        FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
+        int maxWidth = button.getWidth();
 
-    // If text fits in a single line, return as is
-    if (fontMetrics.stringWidth(text) <= maxWidth) {
         return text;
     }
-
-    // Find the index to break the text
-    int breakIndex = 0;
-    int currentWidth = 0;
-    for (int i = 0; i < text.length(); i++) {
-        char c = text.charAt(i);
-        int charWidth = fontMetrics.charWidth(c);
-        currentWidth += charWidth;
-        if (currentWidth > maxWidth) {
-            breakIndex = i;
-            break;
-        }
-    }
-
-    // Construct the two lines
-    String firstLine = text.substring(0, breakIndex).trim();
-    String secondLine = text.substring(breakIndex).trim();
-
-    // Return the formatted text with two lines, centered horizontally and vertically
-    return String.format("<html><center><div style='text-align: center; vertical-align: middle;'>%s<br>%s</div></center></html>", firstLine, secondLine);
-}
-
-
-
 
     private void resizeMediaView(Component container, MediaView mediaView) {
         // Get the new size of the container
@@ -445,13 +432,13 @@ private String formatButtonText(JButton button, String text) {
         videoPanel.setForeground(new java.awt.Color(204, 204, 204));
         videoPanel.setPreferredSize(new java.awt.Dimension(1180, 1000));
 
-        startButton.setBackground(new java.awt.Color(204, 204, 0));
+        startButton.setBackground(new java.awt.Color(255, 255, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
         startButton.setForeground(new java.awt.Color(31, 31, 31));
         startButton.setText("START");
         startButton.setBorder(null);
-        startButton.setMaximumSize(new java.awt.Dimension(200, 80));
-        startButton.setPreferredSize(new java.awt.Dimension(250, 60));
+        startButton.setMaximumSize(new java.awt.Dimension(300, 100));
+        startButton.setPreferredSize(new java.awt.Dimension(300, 80));
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -463,16 +450,16 @@ private String formatButtonText(JButton button, String text) {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(455, Short.MAX_VALUE)
+                .addContainerGap(430, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(481, Short.MAX_VALUE))
+                .addContainerGap(456, Short.MAX_VALUE))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(467, Short.MAX_VALUE)
+                .addContainerGap(457, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(463, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -519,10 +506,39 @@ private String formatButtonText(JButton button, String text) {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backBtnMouseClicked
-        disposeMediaPlayer();
-        Platform.setImplicitExit(false);
-        new LearnerMenuScreen(selectedLanguage, nicNo).setVisible(true);
-        this.dispose();
+        UIManager.put("OptionPane.messageFont", new Font("Nirmala UI", Font.PLAIN, 14));
+        UIManager.put("OptionPane.buttonFont", new Font("Nirmala UI", Font.PLAIN, 14));
+
+        String msg;
+
+        switch (selectedLanguage) {
+            case "Sinhala":
+                msg = "ඔබට පිටවීමට අවශ්‍ය බව විශ්වාසද?";
+                break;
+            case "Tamil":
+                msg = "நிச்சயமாக வெளியேற விரும்புகிறீர்களா?";
+                break;
+            case "English":
+            default:
+                msg = "Are you sure you want to Exit?";
+                break;
+        }
+
+        int response = JOptionPane.showConfirmDialog(
+                null,
+                msg,
+                "Confirm Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (response == JOptionPane.YES_OPTION) {
+            disposeMediaPlayer();
+            Platform.setImplicitExit(false);
+            new LearnerMenuScreen(selectedLanguage, nicNo).setVisible(true);
+            this.dispose();
+        }
+
     }//GEN-LAST:event_backBtnMouseClicked
 
     private void startButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startButtonActionPerformed

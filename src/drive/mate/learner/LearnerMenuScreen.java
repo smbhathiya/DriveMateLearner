@@ -84,21 +84,21 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         if (selectedLanguage.equals("Sinhala")) {
             logoutBtn.setText("පිටවීම");
             menulbl.setText("ප්‍රධාන මෙනුව");
-            namelbl.setText("නම");
+            namelbl.setText("නම:");
             getMaterialsbtn.setText("ඉගෙනුම් උපකාරක");
             getExambtn.setText("පරීක්ෂණය");
 
         } else if (selectedLanguage.equals("Tamil")) {
             logoutBtn.setText("வெளியேறு");
             menulbl.setText("மெனு");
-            namelbl.setText("பெயர்");
+            namelbl.setText("பெயர்:");
             getMaterialsbtn.setText("கற்றுக்கொள்ள பெற");
             getExambtn.setText("தேர்வு பெற");
 
         } else if (selectedLanguage.equals("English")) {
             logoutBtn.setText("LOGOUT");
             menulbl.setText("MAIN MENU");
-            namelbl.setText("NAME");
+            namelbl.setText("NAME:");
             getMaterialsbtn.setText("LEARNING MATERIALS");
             getExambtn.setText("TEST");
         }
@@ -154,18 +154,18 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         menulbl.setForeground(new java.awt.Color(255, 255, 0));
         menulbl.setText("Main Menu");
 
-        usernamelbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        usernamelbl.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         usernamelbl.setForeground(new java.awt.Color(204, 204, 204));
         usernamelbl.setText("name");
 
-        nicnolbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        nicnolbl.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         nicnolbl.setForeground(new java.awt.Color(204, 204, 204));
         nicnolbl.setText("nic");
 
-        namelbl.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        namelbl.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         namelbl.setText("NAME :");
 
-        jLabel3.setFont(new java.awt.Font("Nirmala UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         jLabel3.setText("NIC :");
 
         getExambtn.setBackground(new java.awt.Color(255, 255, 0));
@@ -211,7 +211,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(namelbl))
@@ -248,7 +248,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                 .addComponent(getMaterialsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(getExambtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {getExambtn, getMaterialsbtn});
