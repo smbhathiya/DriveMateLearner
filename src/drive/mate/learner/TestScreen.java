@@ -56,8 +56,8 @@ public class TestScreen extends javax.swing.JFrame {
     private JButton[] buttons = new JButton[4];
     private String[] questions;
     private Map<Integer, String[]> videoButtonTexts;
-    
-    int answersCount =1;
+
+    int answersCount = 1;
 
     LocalDate currentDate = LocalDate.now();
     LocalTime currentTime = LocalTime.now();
@@ -125,6 +125,7 @@ public class TestScreen extends javax.swing.JFrame {
 
             // Adding the Scene to the JFXPanel
             fxPanel.setScene(scene);
+            
 
             // Create a JPanel to hold the JFXPanel
             JPanel jPanel = new JPanel(new BorderLayout());
@@ -212,14 +213,26 @@ public class TestScreen extends javax.swing.JFrame {
             buttonPanel.add(confirmPanel);
 
             confirmButton.addActionListener((ActionEvent e) -> {
-                if (selectedAnswer != null) {
+                selectedAnswer = videoButtonTexts.get(currentVideoIndex - 1)[0];
+                String formattedOriginalText = removeHtmlAndLineBreaks(selectedAnswer);
+
+                if (formattedOriginalText != null) {
                     // Check if the selected answer is correct
-                    if (selectedAnswer.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
+                    if (formattedOriginalText.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
                         score++;
                         System.out.println("Correct answer! Current score: " + score);
                     } else {
                         System.out.println("Wrong answer. Current score: " + score);
                     }
+
+//                if (selectedAnswer != null) {
+//                    // Check if the selected answer is correct
+//                    if (selectedAnswer.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
+//                        score++;
+//                        System.out.println("Correct answer! Current score: " + score);
+//                    } else {
+//                        System.out.println("Wrong answer. Current score: " + score);
+//                    }
                     // Load the next video or show final score
                     currentVideoIndex++;
                     if (currentVideoIndex <= questions.length) {
@@ -234,7 +247,8 @@ public class TestScreen extends javax.swing.JFrame {
                             component1.setVisible(false);
                         }
                         confirmButton.setVisible(false);
-                        selectedAnswer = null; // Reset selected answer
+                        //formattedOriginalText = null; 
+                        //selectedAnswer = null;
                         // Add listener to detect when the next video ends
                         mediaPlayer.setOnEndOfMedia(() -> {
                             // Update button texts and question
@@ -325,6 +339,15 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
+    private String removeHtmlAndLineBreaks(String textWithHtml) {
+        // Remove HTML tags
+        String textWithoutHtml = textWithHtml.replaceAll("\\<.*?\\>", "");
+        // Remove line breaks
+        String textWithoutLineBreaks = textWithoutHtml.replaceAll("[\\r\\n]+", " ");
+        // Remove extra spaces
+        return textWithoutLineBreaks.trim();
+    }
+
     private void updateButtonLabels() {
         if (currentVideoIndex <= questions.length) {
             List<String> answers = new ArrayList<>(List.of(videoButtonTexts.get(currentVideoIndex - 1)));
@@ -345,12 +368,19 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-    private String formatButtonText(JButton button, String text) {
-        FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
-        int maxWidth = button.getWidth();
+ private String formatButtonText(JButton button, String text) {
+    int btnWidth = 550;
+    FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
+    int textWidth = fontMetrics.stringWidth(text);
 
+    if (textWidth > btnWidth) {
+        // Wrap the text in HTML with line breaks
+        return "<html><div style='text-align: center;'>" + text.replaceAll("\n", "<br/>") + "</div></html>";
+    } else {
         return text;
     }
+}
+
 
     private void resizeMediaView(Component container, MediaView mediaView) {
         // Get the new size of the container
@@ -430,13 +460,13 @@ public class TestScreen extends javax.swing.JFrame {
 
         videoPanel.setBackground(new java.awt.Color(31, 31, 31));
         videoPanel.setForeground(new java.awt.Color(204, 204, 204));
-        videoPanel.setPreferredSize(new java.awt.Dimension(1180, 1000));
 
         startButton.setBackground(new java.awt.Color(255, 255, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
         startButton.setForeground(new java.awt.Color(31, 31, 31));
         startButton.setText("START");
         startButton.setBorder(null);
+        startButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         startButton.setMaximumSize(new java.awt.Dimension(300, 100));
         startButton.setPreferredSize(new java.awt.Dimension(300, 80));
         startButton.addActionListener(new java.awt.event.ActionListener() {
@@ -457,9 +487,9 @@ public class TestScreen extends javax.swing.JFrame {
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(457, Short.MAX_VALUE)
+                .addContainerGap(450, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(463, Short.MAX_VALUE))
+                .addContainerGap(456, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -475,7 +505,7 @@ public class TestScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
