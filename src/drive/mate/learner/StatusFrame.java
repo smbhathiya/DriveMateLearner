@@ -4,6 +4,8 @@
  */
 package drive.mate.learner;
 
+import java.awt.Color;
+
 /**
  *
  * @author smbha
@@ -22,8 +24,10 @@ public class StatusFrame extends javax.swing.JFrame {
 
         scorelbl.setText(Integer.toString(score));
         if (score > 15) {
+             statuslbl.setForeground(Color.YELLOW);
             statuslbl.setText("YOU ARE PASSED");
         } else {
+             statuslbl.setForeground(Color.RED);
             statuslbl.setText("YOU ARE FAILED");
         }
     }
@@ -46,6 +50,7 @@ public class StatusFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(31, 31, 31));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
         jPanel1.setRequestFocusEnabled(false);
         jPanel1.setVerifyInputWhenFocusTarget(false);
@@ -56,15 +61,15 @@ public class StatusFrame extends javax.swing.JFrame {
         jLabel1.setText("YOUR SCORE IS");
         jLabel1.setToolTipText("");
 
-        scorelbl.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        scorelbl.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         scorelbl.setForeground(new java.awt.Color(255, 255, 255));
         scorelbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scorelbl.setText("scorelbl");
 
-        statuslbl.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
-        statuslbl.setForeground(new java.awt.Color(0, 255, 0));
+        statuslbl.setFont(new java.awt.Font("Nirmala UI", 1, 40)); // NOI18N
+        statuslbl.setForeground(new java.awt.Color(255, 255, 255));
         statuslbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        statuslbl.setText("YOU ARE PASSED/FAILD");
+        statuslbl.setText("PASSED");
 
         jButton1.setBackground(new java.awt.Color(255, 255, 0));
         jButton1.setFont(new java.awt.Font("Nirmala UI", 1, 16)); // NOI18N
@@ -93,11 +98,11 @@ public class StatusFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -114,17 +119,17 @@ public class StatusFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addContainerGap(34, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(70, 70, 70)
                 .addComponent(scorelbl)
-                .addGap(180, 180, 180)
+                .addGap(50, 50, 50)
                 .addComponent(statuslbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2});
@@ -185,8 +190,8 @@ public class StatusFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new StatusFrame(selectedLanguage, score,nicNo).setVisible(true);
-                new StatusFrame("English", 16, "12345").setVisible(true);
+                new StatusFrame(selectedLanguage, score,nicNo).setVisible(true);
+                //new StatusFrame("English", 10, "12345").setVisible(true);
             }
         });
     }
