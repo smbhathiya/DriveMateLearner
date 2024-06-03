@@ -4,8 +4,6 @@
  */
 package drive.mate.learner;
 
-
-
 /**
  *
  * @author smbha
@@ -15,17 +13,17 @@ public class StatusFrame extends javax.swing.JFrame {
     private static String selectedLanguage;
     private static String nicNo;
     private static int score;
-        
-    public StatusFrame(String selectedLanguage,int score,String nicNo) {
+
+    public StatusFrame(String selectedLanguage, int score, String nicNo) {
         this.selectedLanguage = selectedLanguage;
+        this.nicNo = nicNo;
         this.score = score;
         initComponents();
-        
 
         scorelbl.setText(Integer.toString(score));
-        if(score>15){
+        if (score > 15) {
             statuslbl.setText("YOU ARE PASSED");
-        }else{
+        } else {
             statuslbl.setText("YOU ARE FAILED");
         }
     }
@@ -42,13 +40,11 @@ public class StatusFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         scorelbl = new javax.swing.JLabel();
-        statusImg = new javax.swing.JLabel();
         statuslbl = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 500));
         jPanel1.setRequestFocusEnabled(false);
@@ -64,11 +60,6 @@ public class StatusFrame extends javax.swing.JFrame {
         scorelbl.setForeground(new java.awt.Color(255, 255, 255));
         scorelbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         scorelbl.setText("scorelbl");
-
-        statusImg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        statusImg.setText("statusImg");
-        statusImg.setMaximumSize(new java.awt.Dimension(50, 50));
-        statusImg.setPreferredSize(new java.awt.Dimension(100, 100));
 
         statuslbl.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         statuslbl.setForeground(new java.awt.Color(0, 255, 0));
@@ -114,10 +105,6 @@ public class StatusFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(scorelbl))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(statusImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel1, scorelbl, statuslbl});
@@ -131,9 +118,7 @@ public class StatusFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addComponent(scorelbl)
-                .addGap(38, 38, 38)
-                .addComponent(statusImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(180, 180, 180)
                 .addComponent(statuslbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -160,7 +145,7 @@ public class StatusFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new LearnerMenuScreen(selectedLanguage,nicNo).setVisible(true);
+        new LearnerMenuScreen(selectedLanguage, nicNo).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -200,7 +185,8 @@ public class StatusFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StatusFrame(selectedLanguage, score,nicNo).setVisible(true);
+                //new StatusFrame(selectedLanguage, score,nicNo).setVisible(true);
+                new StatusFrame("English", 16, "12345").setVisible(true);
             }
         });
     }
@@ -211,7 +197,6 @@ public class StatusFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel scorelbl;
-    private javax.swing.JLabel statusImg;
     private javax.swing.JLabel statuslbl;
     // End of variables declaration//GEN-END:variables
 }

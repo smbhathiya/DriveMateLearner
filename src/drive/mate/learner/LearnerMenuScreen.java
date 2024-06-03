@@ -15,22 +15,16 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -40,20 +34,17 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import org.apache.commons.lang3.text.WordUtils;
-import org.apache.pdfbox.Loader;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.rendering.ImageType;
-import org.apache.pdfbox.rendering.PDFRenderer;
 
 /**
  *
  * @author smbha
  */
+
 public class LearnerMenuScreen extends javax.swing.JFrame {
 
-    public static String selectedLanguage;
-    public static String nicNo;
-    public static String userName;
+    private static String selectedLanguage;
+    private static String nicNo;
+    private static String userName;
 
     /**
      * Creates new form LearnerMenuScreen
@@ -61,7 +52,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     public LearnerMenuScreen(String selectedLanguage, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
-        initComponents(); // Move initComponents() call to here
+        initComponents(); 
 
         // Get user name
         userName = getUserName(nicNo);

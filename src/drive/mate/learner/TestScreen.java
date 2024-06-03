@@ -1,6 +1,6 @@
 package drive.mate.learner;
 
-import static drive.mate.learner.LearnerMenuScreen.selectedLanguage;
+
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -294,7 +294,7 @@ public class TestScreen extends javax.swing.JFrame {
                         disposeMediaPlayer();
                         Platform.setImplicitExit(false);
                         SwingUtilities.invokeLater(() -> new StatusFrame(selectedLanguage, score, nicNo).setVisible(true));
-                        //this.dispose();
+                        this.dispose();
 
                     }
                 } else {
@@ -498,14 +498,14 @@ public class TestScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(94, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1186, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 986, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
