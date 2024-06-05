@@ -162,6 +162,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getExambtn.setBackground(new java.awt.Color(255, 255, 0));
         getExambtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         getExambtn.setForeground(new java.awt.Color(31, 31, 31));
+        getExambtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/1.png"))); // NOI18N
         getExambtn.setText("TEST");
         getExambtn.setBorder(null);
         getExambtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -175,6 +176,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
         getMaterialsbtn.setBackground(new java.awt.Color(255, 255, 0));
         getMaterialsbtn.setFont(new java.awt.Font("Nirmala UI", 1, 18)); // NOI18N
         getMaterialsbtn.setForeground(new java.awt.Color(31, 31, 31));
+        getMaterialsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/2.png"))); // NOI18N
         getMaterialsbtn.setText("learning materials");
         getMaterialsbtn.setBorder(null);
         getMaterialsbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));

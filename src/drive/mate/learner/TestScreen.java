@@ -431,13 +431,15 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
+    
     private void disposeMediaPlayer() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            mediaPlayer.dispose();
-            mediaPlayer = null;
-        }
+    if (mediaPlayer != null) {
+        mediaPlayer.stop();
+        mediaPlayer.dispose();
+        mediaPlayer = null;
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -464,11 +466,12 @@ public class TestScreen extends javax.swing.JFrame {
         startButton.setBackground(new java.awt.Color(255, 255, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
         startButton.setForeground(new java.awt.Color(31, 31, 31));
+        startButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/play-button-arrowhead.png"))); // NOI18N
         startButton.setText("START");
         startButton.setBorder(null);
         startButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         startButton.setMaximumSize(new java.awt.Dimension(300, 100));
-        startButton.setPreferredSize(new java.awt.Dimension(300, 80));
+        startButton.setPreferredSize(new java.awt.Dimension(350, 100));
         startButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startButtonActionPerformed(evt);
@@ -480,16 +483,16 @@ public class TestScreen extends javax.swing.JFrame {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(430, Short.MAX_VALUE)
+                .addContainerGap(421, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addContainerGap(447, Short.MAX_VALUE))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(450, Short.MAX_VALUE)
+                .addContainerGap(440, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(456, Short.MAX_VALUE))
+                .addContainerGap(446, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -497,9 +500,9 @@ public class TestScreen extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
+                .addContainerGap(78, Short.MAX_VALUE)
                 .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
