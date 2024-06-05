@@ -5,29 +5,35 @@
 package drive.mate.learner;
 
 import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author smbha
  */
-public class StatusFrame extends javax.swing.JFrame {
+public class TestResults extends javax.swing.JFrame {
 
     private static String selectedLanguage;
     private static String nicNo;
     private static int score;
 
-    public StatusFrame(String selectedLanguage, int score, String nicNo) {
+    public TestResults(String selectedLanguage, int score, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
         this.score = score;
+        
+        Image icon = new ImageIcon(getClass().getResource("/res/DML.png")).getImage();
+        this.setIconImage(icon);
+        
         initComponents();
 
         scorelbl.setText(Integer.toString(score));
-        if (score > 15) {
-             statuslbl.setForeground(Color.YELLOW);
+        if (score > 14) {
+            statuslbl.setForeground(Color.YELLOW);
             statuslbl.setText("YOU ARE PASSED");
         } else {
-             statuslbl.setForeground(Color.RED);
+            statuslbl.setForeground(Color.RED);
             statuslbl.setText("YOU ARE FAILED");
         }
     }
@@ -176,22 +182,24 @@ public class StatusFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StatusFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestResults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StatusFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestResults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StatusFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestResults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StatusFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TestResults.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StatusFrame(selectedLanguage, score,nicNo).setVisible(true);
-                //new StatusFrame("English", 10, "12345").setVisible(true);
+                //new TestResults(selectedLanguage, score, nicNo).setVisible(true);
+                new TestResults("English", 10, "12345").setVisible(true);
             }
         });
     }

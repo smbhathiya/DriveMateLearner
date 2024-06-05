@@ -1,6 +1,5 @@
 package drive.mate.learner;
 
-
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -25,6 +24,7 @@ import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,6 +35,7 @@ import java.util.Map;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -76,6 +77,10 @@ public class TestScreen extends javax.swing.JFrame {
         this.nicNo = nicNo;
         this.questions = QList.getQuestions(selectedLanguage);
         this.videoButtonTexts = QList.getVideoButtonTexts(selectedLanguage);
+
+        Image iconl = new ImageIcon(getClass().getResource("/res/DML.png")).getImage();
+        this.setIconImage(iconl);
+
         initComponents();
 
         this.setExtendedState(this.MAXIMIZED_BOTH);
@@ -125,7 +130,6 @@ public class TestScreen extends javax.swing.JFrame {
 
             // Adding the Scene to the JFXPanel
             fxPanel.setScene(scene);
-            
 
             // Create a JPanel to hold the JFXPanel
             JPanel jPanel = new JPanel(new BorderLayout());
@@ -213,89 +217,53 @@ public class TestScreen extends javax.swing.JFrame {
             buttonPanel.add(confirmPanel);
 
             confirmButton.addActionListener((ActionEvent e) -> {
-                selectedAnswer = videoButtonTexts.get(currentVideoIndex - 1)[0];
-                String formattedOriginalText = removeHtmlAndLineBreaks(selectedAnswer);
-
-                if (formattedOriginalText != null) {
-                    // Check if the selected answer is correct
-                    if (formattedOriginalText.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
+                if (selectedAnswer != null) {
+                    String correctAnswer = videoButtonTexts.get(currentVideoIndex - 1)[0];
+                    if (selectedAnswer.equals(correctAnswer)) {
                         score++;
                         System.out.println("Correct answer! Current score: " + score);
                     } else {
                         System.out.println("Wrong answer. Current score: " + score);
                     }
 
-//                if (selectedAnswer != null) {
-//                    // Check if the selected answer is correct
-//                    if (selectedAnswer.equals(videoButtonTexts.get(currentVideoIndex - 1)[0])) {
-//                        score++;
-//                        System.out.println("Correct answer! Current score: " + score);
-//                    } else {
-//                        System.out.println("Wrong answer. Current score: " + score);
-//                    }
-                    // Load the next video or show final score
                     currentVideoIndex++;
                     if (currentVideoIndex <= questions.length) {
                         String nextVideoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";
                         Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
-                        disposeMediaPlayer();
+                        disposeMediaPlayer(); // Ensure previous mediaPlayer is disposed
                         mediaPlayer = new MediaPlayer(nextMedia);
                         mediaView.setMediaPlayer(mediaPlayer);
                         mediaPlayer.play();
+
                         // Hide the buttons and question again
-                        for (Component component1 : buttonPanel.getComponents()) {
-                            component1.setVisible(false);
+                        questionLabel.setVisible(false);
+                        for (JButton button : buttons) {
+                            button.setVisible(false);
                         }
                         confirmButton.setVisible(false);
-                        //formattedOriginalText = null; 
-                        //selectedAnswer = null;
+
                         // Add listener to detect when the next video ends
                         mediaPlayer.setOnEndOfMedia(() -> {
                             // Update button texts and question
                             questionLabel.setText(questions[currentVideoIndex - 1]);
                             updateButtonLabels();
                             // Make the buttons and question visible
-                            for (Component component2 : buttonPanel.getComponents()) {
-                                component2.setVisible(true);
+                            questionLabel.setVisible(true);
+                            for (JButton button : buttons) {
+                                button.setVisible(true);
                             }
                             confirmButton.setVisible(true);
                         });
                     } else {
                         // All questions have been answered, show final score
                         System.out.println("Test completed. Final score: " + score);
-                        try (Connection connection = DatabaseConnection.getConnection()) {
-                            // Prepare SQL statement to insert final score into the database
-                            String insertQuery = "INSERT INTO marks (nicno, date, time, marks) VALUES (?, ?, ?, ?)";
-                            try (PreparedStatement stmt = connection.prepareStatement(insertQuery)) {
-                                // Set parameters for the prepared statement
-                                stmt.setString(1, nicNo);
-                                stmt.setString(2, formattedDate);
-                                stmt.setString(3, formattedTime);
-                                stmt.setInt(4, score);
+                        saveFinalScore(); // Moved score saving logic to a separate method for clarity
 
-                                // Execute the insert statement
-                                int rowsAffected = stmt.executeUpdate();
-                                if (rowsAffected > 0) {
-                                    System.out.println("Final score saved in the database.");
-                                } else {
-                                    System.out.println("Failed to save final score in the database.");
-                                }
-                            }
-                        } catch (SQLException ex) {
-                            System.err.println("Error while saving final score in the database: " + ex.getMessage());
-                            ex.printStackTrace();
-                        }
-                        for (Component component3 : buttonPanel.getComponents()) {
-                            component3.setVisible(false);
-                        }
-                        confirmButton.setVisible(false);
-
-                        //SHOW STATUS FRAME
+                        // Dispose current media player and transition to results screen
                         disposeMediaPlayer();
                         Platform.setImplicitExit(false);
-                        SwingUtilities.invokeLater(() -> new StatusFrame(selectedLanguage, score, nicNo).setVisible(true));
+                        SwingUtilities.invokeLater(() -> new TestResults(selectedLanguage, score, nicNo).setVisible(true));
                         this.dispose();
-
                     }
                 } else {
                     System.out.println("Please select an answer before confirming.");
@@ -339,6 +307,39 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
+    private void saveFinalScore() {
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            // Prepare SQL statement to insert final score into the database
+            String insertQuery = "INSERT INTO marks (nicno, date, time, marks) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement stmt = connection.prepareStatement(insertQuery)) {
+                // Set parameters for the prepared statement
+                stmt.setString(1, nicNo);
+                stmt.setString(2, formattedDate);
+                stmt.setString(3, formattedTime);
+                stmt.setInt(4, score);
+
+                // Execute the insert statement
+                int rowsAffected = stmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Final score saved in the database.");
+                } else {
+                    System.out.println("Failed to save final score in the database.");
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error while saving final score in the database: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    private void disposeMediaPlayer() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+            mediaPlayer = null;
+        }
+    }
+
     private String removeHtmlAndLineBreaks(String textWithHtml) {
         // Remove HTML tags
         String textWithoutHtml = textWithHtml.replaceAll("\\<.*?\\>", "");
@@ -368,19 +369,18 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
- private String formatButtonText(JButton button, String text) {
-    int btnWidth = 550;
-    FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
-    int textWidth = fontMetrics.stringWidth(text);
+    private String formatButtonText(JButton button, String text) {
+        int btnWidth = 550;
+        FontMetrics fontMetrics = button.getFontMetrics(button.getFont());
+        int textWidth = fontMetrics.stringWidth(text);
 
-    if (textWidth > btnWidth) {
-        // Wrap the text in HTML with line breaks
-        return "<html><div style='text-align: center;'>" + text.replaceAll("\n", "<br/>") + "</div></html>";
-    } else {
-        return text;
+        if (textWidth > btnWidth) {
+            // Wrap the text in HTML with line breaks
+            return "<html><div style='text-align: center;'>" + text.replaceAll("\n", "<br/>") + "</div></html>";
+        } else {
+            return text;
+        }
     }
-}
-
 
     private void resizeMediaView(Component container, MediaView mediaView) {
         // Get the new size of the container
@@ -430,16 +430,6 @@ public class TestScreen extends javax.swing.JFrame {
             System.err.println("Invalid original dimensions of the video.");
         }
     }
-
-    
-    private void disposeMediaPlayer() {
-    if (mediaPlayer != null) {
-        mediaPlayer.stop();
-        mediaPlayer.dispose();
-        mediaPlayer = null;
-    }
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.

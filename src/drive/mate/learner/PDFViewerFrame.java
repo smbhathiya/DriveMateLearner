@@ -21,6 +21,8 @@ public class PDFViewerFrame extends JFrame {
     private float currentDPI = 100; // Initial DPI value
 
     public PDFViewerFrame(File pdfFile, int width, int height) {
+        Image iconl = new ImageIcon(getClass().getResource("/res/DML.png")).getImage();
+        this.setIconImage(iconl);
         this.pdfFile = pdfFile;
         setTitle("PDF Viewer");
         setSize(width, height);

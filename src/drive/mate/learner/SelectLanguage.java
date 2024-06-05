@@ -27,6 +27,10 @@ public class SelectLanguage extends javax.swing.JFrame {
      * Creates new form SelectLanguage
      */
     public SelectLanguage() {
+
+        Image iconl = new ImageIcon(getClass().getResource("/res/DML.png")).getImage();
+        this.setIconImage(iconl);
+
         initComponents();
 
         this.setExtendedState(this.MAXIMIZED_BOTH);
@@ -39,16 +43,15 @@ public class SelectLanguage extends javax.swing.JFrame {
             }
         });
 
-       // Image icon = new ImageIcon(this.getClass().getResource("/res/logo.png")).getImage();
+        // Image icon = new ImageIcon(this.getClass().getResource("/res/logo.png")).getImage();
         //this.setIconImage(icon);
-
         ImageIcon logoIcon = new ImageIcon(this.getClass().getResource("/res/logo.png"));
         ImageIcon logoIcon2 = new ImageIcon(this.getClass().getResource("/res/whitenlogo.png"));
 
         Image scaledImage = logoIcon.getImage().getScaledInstance(logolbl.getWidth(), logolbl.getHeight(), Image.SCALE_SMOOTH);
-         Image scaledImage2 = logoIcon2.getImage().getScaledInstance(lbl2.getWidth(), lbl2.getHeight(), Image.SCALE_SMOOTH);
+        Image scaledImage2 = logoIcon2.getImage().getScaledInstance(lbl2.getWidth(), lbl2.getHeight(), Image.SCALE_SMOOTH);
         logoIcon = new ImageIcon(scaledImage);
-        logoIcon2 =  new ImageIcon(scaledImage2);
+        logoIcon2 = new ImageIcon(scaledImage2);
 
         logolbl.setIcon(logoIcon);
         //lbl2.setIcon(logoIcon2);

@@ -17,16 +17,19 @@ public class LoadingScreen extends javax.swing.JFrame {
      * Creates new form LoadingScreen
      */
     public LoadingScreen() {
+        Image iconl = new ImageIcon(getClass().getResource("/res/DML.png")).getImage();
+        this.setIconImage(iconl);
+
         initComponents();
-        
-         Image icon = new ImageIcon(this.getClass().getResource("/res/logo.png")).getImage();
+
+        Image icon = new ImageIcon(this.getClass().getResource("/res/logo.png")).getImage();
         this.setIconImage(icon);
-        
+
         ImageIcon logoIcon = new ImageIcon(this.getClass().getResource("/res/logo.png"));
-        
+
         Image scaledImage = logoIcon.getImage().getScaledInstance(logolbl.getWidth(), logolbl.getHeight(), Image.SCALE_SMOOTH);
         logoIcon = new ImageIcon(scaledImage);
-        
+
         logolbl.setIcon(logoIcon);
     }
 
@@ -71,14 +74,13 @@ public class LoadingScreen extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(25, 25, 25)
-                .addComponent(lbl)
-                .addContainerGap(223, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logolbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(25, 25, 25)
+                        .addComponent(lbl))
+                    .addComponent(logolbl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(

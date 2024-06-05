@@ -15,6 +15,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -25,6 +26,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,7 +41,6 @@ import org.apache.commons.lang3.text.WordUtils;
  *
  * @author smbha
  */
-
 public class LearnerMenuScreen extends javax.swing.JFrame {
 
     private static String selectedLanguage;
@@ -52,7 +53,11 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
     public LearnerMenuScreen(String selectedLanguage, String nicNo) {
         this.selectedLanguage = selectedLanguage;
         this.nicNo = nicNo;
-        initComponents(); 
+
+        Image icon = new ImageIcon(getClass().getResource("/res/DML.png")).getImage();
+        this.setIconImage(icon);
+
+        initComponents();
 
         // Get user name
         userName = getUserName(nicNo);
@@ -263,7 +268,7 @@ public class LearnerMenuScreen extends javax.swing.JFrame {
                 msg = "நிச்சயமாக வெளியேற விரும்புகிறீர்களா?";
                 break;
             case "English":
-            default: 
+            default:
                 msg = "Are you sure you want to log out?";
                 break;
         }
