@@ -1,5 +1,6 @@
 package drive.mate.learner;
 
+import com.sun.javafx.application.PlatformImpl;
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -239,7 +240,7 @@ public class TestScreen extends javax.swing.JFrame {
                         });
                     } else {
                         System.out.println("Test completed. Final score: " + score);
-                        saveFinalScore(); 
+                        saveFinalScore();
 
                         disposeMediaPlayer();
                         Platform.setImplicitExit(false);
@@ -317,7 +318,6 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-
     private void updateButtonLabels() {
         if (currentVideoIndex <= questions.length) {
             List<String> answers = new ArrayList<>(List.of(videoButtonTexts.get(currentVideoIndex - 1)));
@@ -350,41 +350,40 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-    private void resizeMediaView(Component container, MediaView mediaView) {
-        Dimension newSize = container.getSize();
-        double newWidth = newSize.getWidth();
-        double newHeight = newSize.getHeight();
+private void resizeMediaView(Component container, MediaView mediaView) {
+    Dimension newSize = container.getSize();
+    double newWidth = newSize.getWidth();
+    double newHeight = newSize.getHeight();
 
-        double originalWidth = 1920;
-        double originalHeight = 1080;
+    double originalWidth = 1920;
+    double originalHeight = 1080;
 
-        if (originalWidth > 0 && originalHeight > 0) {
-            double videoAspectRatio = originalWidth / originalHeight;
+    if (originalWidth > 0 && originalHeight > 0) {
+        double videoAspectRatio = originalWidth / originalHeight;
+        double containerAspectRatio = newWidth / newHeight;
 
-            double containerAspectRatio = newWidth / newHeight;
+        double scaledWidth, scaledHeight;
+        double offsetX = 0, offsetY = 0;
 
-            double scaledWidth, scaledHeight;
-
-            if (videoAspectRatio > containerAspectRatio) {
-                scaledWidth = newWidth;
-                scaledHeight = scaledWidth / videoAspectRatio;
-            } else {
-                scaledHeight = newHeight;
-                scaledWidth = scaledHeight * videoAspectRatio;
-            }
-
-            mediaView.setFitWidth(scaledWidth);
-            mediaView.setFitHeight(scaledHeight);
-
-            double offsetX = (newWidth - scaledWidth) / 2;
-            double offsetY = (newHeight - scaledHeight) / 2;
-
-            mediaView.setTranslateX(offsetX);
-            mediaView.setTranslateY(offsetY);
+        if (videoAspectRatio > containerAspectRatio) {
+            scaledWidth = newWidth;
+            scaledHeight = scaledWidth / videoAspectRatio;
+            offsetY = (newHeight - scaledHeight) / 2;
         } else {
-            System.err.println("Invalid original dimensions of the video.");
+            scaledHeight = newHeight;
+            scaledWidth = scaledHeight * videoAspectRatio;
+            offsetX = (newWidth - scaledWidth) / 2;
         }
+
+        mediaView.setFitWidth(scaledWidth);
+        mediaView.setFitHeight(scaledHeight);
+        mediaView.setTranslateX(offsetX);
+        mediaView.setTranslateY(offsetY);
+    } else {
+        System.err.println("Invalid original dimensions of the video.");
     }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -430,16 +429,16 @@ public class TestScreen extends javax.swing.JFrame {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(369, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(410, Short.MAX_VALUE)
+                .addContainerGap(316, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(309, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -447,16 +446,16 @@ public class TestScreen extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1113, Short.MAX_VALUE)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1104, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
+                .addContainerGap(111, Short.MAX_VALUE))
         );
 
         backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/back.png"))); // NOI18N
@@ -560,7 +559,9 @@ public class TestScreen extends javax.swing.JFrame {
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        Platform.startup(() -> {
 
+        });
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
