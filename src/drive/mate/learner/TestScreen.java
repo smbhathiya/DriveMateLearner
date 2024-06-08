@@ -117,7 +117,6 @@ public class TestScreen extends javax.swing.JFrame {
             disposeMediaPlayer(); // Dispose of the previous mediaPlayer before creating a new one
             mediaPlayer = new MediaPlayer(media);
 
-            // Creating a MediaView to display the video
             MediaView mediaView = new MediaView(mediaPlayer);
             mediaView.setFitWidth(1920);
             mediaView.setFitHeight(1080);
@@ -125,32 +124,25 @@ public class TestScreen extends javax.swing.JFrame {
             Group group = new Group();
             group.getChildren().add(mediaView);
 
-            // Creating a Scene with the Group
             Scene scene = new Scene(group, Color.rgb(31, 31, 31));
 
-            // Adding the Scene to the JFXPanel
             fxPanel.setScene(scene);
 
-            // Create a JPanel to hold the JFXPanel
             JPanel jPanel = new JPanel(new BorderLayout());
             jPanel.setOpaque(true);
             jPanel.add(fxPanel, BorderLayout.CENTER);
 
-            // Add the JPanel to the videoPanel
             videoPanel.setLayout(new BorderLayout());
             videoPanel.add(jPanel, BorderLayout.CENTER);
             videoPanel.setOpaque(true);
 
-            // Get the top-level container (frame or window)
             Container container = SwingUtilities.getWindowAncestor(videoPanel);
 
-            // Create the main button panel with BoxLayout (Y_AXIS)
             JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
             buttonPanel.setOpaque(false); // Transparent panel
             videoPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-            // Add question label in a separate JPanel
             JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             questionPanel.setOpaque(false); // Transparent panel
             questionLabel = new JLabel(questions[currentVideoIndex - 1]);
@@ -162,7 +154,6 @@ public class TestScreen extends javax.swing.JFrame {
 
             confirmButton.setFont(buttonFont);
 
-            // Add buttons in two rows using nested JPanels
             JPanel buttonRow1 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
             buttonRow1.setOpaque(false); // Transparent panel
             JPanel buttonRow2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -176,17 +167,14 @@ public class TestScreen extends javax.swing.JFrame {
                 buttons[i].setBackground(new java.awt.Color(0xFFFF00));
                 buttons[i].setVisible(false); // Make buttons visible
 
-                // Add buttons to respective rows
                 if (i < 2) {
                     buttonRow1.add(buttons[i]);
                 } else {
                     buttonRow2.add(buttons[i]);
                 }
 
-                // Add action listener to buttons
                 final int answerIndex = i;
                 buttons[i].addActionListener((ActionEvent e) -> {
-                    // Update the selected answer immediately upon selection
                     selectedAnswer = buttons[answerIndex].getText();
                     System.out.println("Selected answer: " + selectedAnswer);
                 });
@@ -208,7 +196,6 @@ public class TestScreen extends javax.swing.JFrame {
             buttonPanel.add(buttonRow1);
             buttonPanel.add(buttonRow2);
 
-            // Add confirm button in a separate JPanel
             JPanel confirmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             confirmPanel.setOpaque(false); // Transparent panel
             confirmButton.setPreferredSize(new Dimension(200, 40));
@@ -235,19 +222,15 @@ public class TestScreen extends javax.swing.JFrame {
                         mediaView.setMediaPlayer(mediaPlayer);
                         mediaPlayer.play();
 
-                        // Hide the buttons and question again
                         questionLabel.setVisible(false);
                         for (JButton button : buttons) {
                             button.setVisible(false);
                         }
                         confirmButton.setVisible(false);
 
-                        // Add listener to detect when the next video ends
                         mediaPlayer.setOnEndOfMedia(() -> {
-                            // Update button texts and question
                             questionLabel.setText(questions[currentVideoIndex - 1]);
                             updateButtonLabels();
-                            // Make the buttons and question visible
                             questionLabel.setVisible(true);
                             for (JButton button : buttons) {
                                 button.setVisible(true);
@@ -255,11 +238,9 @@ public class TestScreen extends javax.swing.JFrame {
                             confirmButton.setVisible(true);
                         });
                     } else {
-                        // All questions have been answered, show final score
                         System.out.println("Test completed. Final score: " + score);
-                        saveFinalScore(); // Moved score saving logic to a separate method for clarity
+                        saveFinalScore(); 
 
-                        // Dispose current media player and transition to results screen
                         disposeMediaPlayer();
                         Platform.setImplicitExit(false);
                         SwingUtilities.invokeLater(() -> new TestResults(selectedLanguage, score, nicNo).setVisible(true));
@@ -272,11 +253,9 @@ public class TestScreen extends javax.swing.JFrame {
 
             // Add listener to detect when the video ends
             mediaPlayer.setOnEndOfMedia(() -> {
-                // Update button texts and question
                 questionLabel.setText(questions[currentVideoIndex - 1]);
                 updateButtonLabels();
 
-                // Make the buttons and question visible
                 questionLabel.setVisible(true);
                 for (JButton button : buttons) {
                     button.setVisible(true);
@@ -284,7 +263,6 @@ public class TestScreen extends javax.swing.JFrame {
                 confirmButton.setVisible(true);
             });
 
-            // Assuming jPanel is an instance of CustomPanel
             jPanel.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
@@ -292,7 +270,6 @@ public class TestScreen extends javax.swing.JFrame {
                 }
             });
 
-            // Add a component listener to track JFrame resizing
             container.addComponentListener(new ComponentAdapter() {
                 @Override
                 public void componentResized(ComponentEvent e) {
@@ -340,14 +317,6 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-    private String removeHtmlAndLineBreaks(String textWithHtml) {
-        // Remove HTML tags
-        String textWithoutHtml = textWithHtml.replaceAll("\\<.*?\\>", "");
-        // Remove line breaks
-        String textWithoutLineBreaks = textWithoutHtml.replaceAll("[\\r\\n]+", " ");
-        // Remove extra spaces
-        return textWithoutLineBreaks.trim();
-    }
 
     private void updateButtonLabels() {
         if (currentVideoIndex <= questions.length) {
@@ -375,7 +344,6 @@ public class TestScreen extends javax.swing.JFrame {
         int textWidth = fontMetrics.stringWidth(text);
 
         if (textWidth > btnWidth) {
-            // Wrap the text in HTML with line breaks
             return "<html><div style='text-align: center;'>" + text.replaceAll("\n", "<br/>") + "</div></html>";
         } else {
             return text;
@@ -383,50 +351,37 @@ public class TestScreen extends javax.swing.JFrame {
     }
 
     private void resizeMediaView(Component container, MediaView mediaView) {
-        // Get the new size of the container
         Dimension newSize = container.getSize();
         double newWidth = newSize.getWidth();
         double newHeight = newSize.getHeight();
 
-        // Set the original dimensions of the video
-        double originalWidth = 1920; // Original width of the video
-        double originalHeight = 1080; // Original height of the video
+        double originalWidth = 1920;
+        double originalHeight = 1080;
 
-        // Ensure original dimensions are valid
         if (originalWidth > 0 && originalHeight > 0) {
-            // Calculate the aspect ratio of the video
             double videoAspectRatio = originalWidth / originalHeight;
 
-            // Calculate the aspect ratio of the container
             double containerAspectRatio = newWidth / newHeight;
 
-            // Calculate the scaled dimensions
             double scaledWidth, scaledHeight;
 
-            // Check if the video aspect ratio is wider than the container aspect ratio
             if (videoAspectRatio > containerAspectRatio) {
-                // Video is wider, fit width to container and adjust height accordingly
                 scaledWidth = newWidth;
                 scaledHeight = scaledWidth / videoAspectRatio;
             } else {
-                // Video is taller, fit height to container and adjust width accordingly
                 scaledHeight = newHeight;
                 scaledWidth = scaledHeight * videoAspectRatio;
             }
 
-            // Set the dimensions of the MediaView to fit inside the container
             mediaView.setFitWidth(scaledWidth);
             mediaView.setFitHeight(scaledHeight);
 
-            // Center the MediaView within the container
             double offsetX = (newWidth - scaledWidth) / 2;
             double offsetY = (newHeight - scaledHeight) / 2;
 
-            // Set the position of the MediaView
             mediaView.setTranslateX(offsetX);
             mediaView.setTranslateY(offsetY);
         } else {
-            // Handle invalid original dimensions
             System.err.println("Invalid original dimensions of the video.");
         }
     }
@@ -449,10 +404,11 @@ public class TestScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(31, 31, 31));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1300, 950));
 
         videoPanel.setBackground(new java.awt.Color(31, 31, 31));
         videoPanel.setForeground(new java.awt.Color(204, 204, 204));
-        videoPanel.setPreferredSize(new java.awt.Dimension(1218, 970));
+        videoPanel.setPreferredSize(new java.awt.Dimension(1100, 900));
 
         startButton.setBackground(new java.awt.Color(255, 255, 0));
         startButton.setFont(new java.awt.Font("Nirmala UI", 1, 24)); // NOI18N
@@ -474,16 +430,16 @@ public class TestScreen extends javax.swing.JFrame {
         videoPanelLayout.setHorizontalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(421, Short.MAX_VALUE)
+                .addContainerGap(369, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(447, Short.MAX_VALUE))
+                .addContainerGap(394, Short.MAX_VALUE))
         );
         videoPanelLayout.setVerticalGroup(
             videoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, videoPanelLayout.createSequentialGroup()
-                .addContainerGap(429, Short.MAX_VALUE)
+                .addContainerGap(410, Short.MAX_VALUE)
                 .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addContainerGap(416, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -491,16 +447,16 @@ public class TestScreen extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(77, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1113, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(10, Short.MAX_VALUE)
-                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(videoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         backBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/back.png"))); // NOI18N
