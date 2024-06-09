@@ -62,7 +62,7 @@ public class LoadingScreen extends javax.swing.JFrame {
         lbl.setForeground(new java.awt.Color(255, 255, 0));
         lbl.setText("100%");
 
-        jProgressBar.setForeground(new java.awt.Color(255, 255, 0));
+        jProgressBar.setForeground(new java.awt.Color(0, 204, 204));
         jProgressBar.setPreferredSize(new java.awt.Dimension(600, 8));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
