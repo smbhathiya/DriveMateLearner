@@ -10,6 +10,30 @@
 <project name="Drive_Mate_Learner" default="default" basedir=".">
     <description>Builds, tests, and runs the project Drive Mate Learner.</description>
     
+    <!-- Must add javaFX directory -->
+    <property name="javafx.lib.dir" location="C:/Program Files/JavaFX/javafx-sdk-21.0.2/lib"/>
+    <property name="lib.dir" location="lib"/>
+
+    <!-- Custom classpath including JavaFX and other libraries -->
+    <path id="classpath">
+        <fileset dir="${javafx.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <!-- Compile target with JavaFX module path and required modules -->
+    <target name="-pre-compile">
+        <mkdir dir="${build.classes}"/>
+        <javac srcdir="${src.dir}" destdir="${build.classes}" classpathref="classpath">
+            <compilerarg value="--module-path"/>
+            <compilerarg value="${javafx.lib.dir}"/>
+            <compilerarg value="--add-modules=javafx.controls,javafx.fxml"/>
+        </javac>
+    </target>
+
     <target name="-post-jar">
         <copy todir="dist/resources/pdf">
             <fileset dir="resources/pdf/" />
@@ -18,8 +42,18 @@
             <fileset dir="resources/videos/" />
         </copy>
     </target>
-    
+
+    <!-- Run target with JavaFX module path and required modules -->
+    <target name="run" depends="jar">
+        <java jar="${dist.jar}" fork="true">
+            <jvmarg value="--module-path"/>
+            <jvmarg value="${javafx.lib.dir}"/>
+            <jvmarg value="--add-modules=javafx.controls,javafx.fxml"/>
+        </java>
+    </target>
+
     <import file="nbproject/build-impl.xml"/>
+
 
 
     <!--
