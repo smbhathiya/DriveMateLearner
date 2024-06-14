@@ -200,7 +200,12 @@ public class TestScreen extends javax.swing.JFrame {
 
             JPanel confirmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
             confirmPanel.setOpaque(false); // Transparent panel
-            confirmButton.setPreferredSize(new Dimension(200, 40));
+            
+            confirmButton.setBackground(new java.awt.Color(0, 100, 0));
+            confirmButton.setForeground(java.awt.Color.white);
+            confirmButton.setPreferredSize(new Dimension(500, 55));
+            confirmButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            
             confirmButton.setVisible(false); // Make confirm button visible
             confirmPanel.add(confirmButton);
             buttonPanel.add(confirmPanel);
@@ -351,40 +356,39 @@ public class TestScreen extends javax.swing.JFrame {
         }
     }
 
-private void resizeMediaView(Component container, MediaView mediaView) {
-    Dimension newSize = container.getSize();
-    double newWidth = newSize.getWidth();
-    double newHeight = newSize.getHeight();
+    private void resizeMediaView(Component container, MediaView mediaView) {
+        Dimension newSize = container.getSize();
+        double newWidth = newSize.getWidth();
+        double newHeight = newSize.getHeight();
 
-    double originalWidth = 1920;
-    double originalHeight = 1080;
+        double originalWidth = 1920;
+        double originalHeight = 1080;
 
-    if (originalWidth > 0 && originalHeight > 0) {
-        double videoAspectRatio = originalWidth / originalHeight;
-        double containerAspectRatio = newWidth / newHeight;
+        if (originalWidth > 0 && originalHeight > 0) {
+            double videoAspectRatio = originalWidth / originalHeight;
+            double containerAspectRatio = newWidth / newHeight;
 
-        double scaledWidth, scaledHeight;
-        double offsetX = 0, offsetY = 0;
+            double scaledWidth, scaledHeight;
+            double offsetX = 0, offsetY = 0;
 
-        if (videoAspectRatio > containerAspectRatio) {
-            scaledWidth = newWidth;
-            scaledHeight = scaledWidth / videoAspectRatio;
-            offsetY = (newHeight - scaledHeight) / 2;
+            if (videoAspectRatio > containerAspectRatio) {
+                scaledWidth = newWidth;
+                scaledHeight = scaledWidth / videoAspectRatio;
+                offsetY = (newHeight - scaledHeight) / 2;
+            } else {
+                scaledHeight = newHeight;
+                scaledWidth = scaledHeight * videoAspectRatio;
+                offsetX = (newWidth - scaledWidth) / 2;
+            }
+
+            mediaView.setFitWidth(scaledWidth);
+            mediaView.setFitHeight(scaledHeight);
+            mediaView.setTranslateX(offsetX);
+            mediaView.setTranslateY(offsetY);
         } else {
-            scaledHeight = newHeight;
-            scaledWidth = scaledHeight * videoAspectRatio;
-            offsetX = (newWidth - scaledWidth) / 2;
+            System.err.println("Invalid original dimensions of the video.");
         }
-
-        mediaView.setFitWidth(scaledWidth);
-        mediaView.setFitHeight(scaledHeight);
-        mediaView.setTranslateX(offsetX);
-        mediaView.setTranslateY(offsetY);
-    } else {
-        System.err.println("Invalid original dimensions of the video.");
     }
-}
-
 
     /**
      * This method is called from within the constructor to initialize the form.
