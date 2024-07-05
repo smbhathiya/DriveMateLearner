@@ -1,6 +1,6 @@
 package drive.mate.learner;
 
-import com.sun.javafx.application.PlatformImpl;
+
 import java.sql.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -58,6 +58,8 @@ public class TestScreen extends javax.swing.JFrame {
     private JButton[] buttons = new JButton[4];
     private String[] questions;
     private Map<Integer, String[]> videoButtonTexts;
+    
+ 
 
     int answersCount = 1;
 
@@ -84,7 +86,7 @@ public class TestScreen extends javax.swing.JFrame {
         this.setIconImage(iconl);
 
         initComponents();
-
+        
         this.setExtendedState(this.MAXIMIZED_BOTH);
         setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
 
@@ -116,7 +118,7 @@ public class TestScreen extends javax.swing.JFrame {
 
             JFXPanel fxPanel = new JFXPanel();
             Media media = new Media(new File(videoPath).toURI().toString());
-            disposeMediaPlayer(); // Dispose of the previous mediaPlayer before creating a new one
+            //disposeMediaPlayer(); 
             mediaPlayer = new MediaPlayer(media);
 
             MediaView mediaView = new MediaView(mediaPlayer);
@@ -224,7 +226,7 @@ public class TestScreen extends javax.swing.JFrame {
                     if (currentVideoIndex <= questions.length) {
                         String nextVideoPath = folderPath + "/resources/videos/" + currentVideoIndex + ".mp4";
                         Media nextMedia = new Media(new File(nextVideoPath).toURI().toString());
-                        disposeMediaPlayer(); // Ensure previous mediaPlayer is disposed
+                        //disposeMediaPlayer();
                         mediaPlayer = new MediaPlayer(nextMedia);
                         mediaView.setMediaPlayer(mediaPlayer);
                         mediaPlayer.play();
@@ -325,6 +327,7 @@ public class TestScreen extends javax.swing.JFrame {
     }
 
     private void updateButtonLabels() {
+        qcount.setText(""+answersCount );
         if (currentVideoIndex <= questions.length) {
             List<String> answers = new ArrayList<>(List.of(videoButtonTexts.get(currentVideoIndex - 1)));
             Collections.shuffle(answers);
@@ -404,6 +407,7 @@ public class TestScreen extends javax.swing.JFrame {
         startButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         backBtn = new javax.swing.JMenu();
+        qcount = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1250, 997));
@@ -473,6 +477,13 @@ public class TestScreen extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(backBtn);
+
+        qcount.setDelay(0);
+        qcount.setEnabled(false);
+        qcount.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        qcount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        qcount.setPreferredSize(new java.awt.Dimension(100, 6));
+        jMenuBar1.add(qcount);
 
         setJMenuBar(jMenuBar1);
 
@@ -580,6 +591,7 @@ public class TestScreen extends javax.swing.JFrame {
     private javax.swing.JMenu backBtn;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenu qcount;
     private javax.swing.JButton startButton;
     public javax.swing.JPanel videoPanel;
     // End of variables declaration//GEN-END:variables
